@@ -12,6 +12,7 @@
     pkgs.bat
     pkgs.exa
     pkgs.rustup
+    pkgs.nodejs
   ];
 
   dov = {
