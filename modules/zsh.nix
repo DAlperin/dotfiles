@@ -23,7 +23,7 @@ in
           catl = "bat";
           catp = "bat --plain";
           reload = "source ~/.zshrc";
-          open-profile = "vim ~/.zshrc";
+          open-profile = "nvim ~/.zshrc";
         };
         sessionVariables = {
           SPACESHIP_PROMPT_ADD_NEWLINE = "false";
@@ -34,7 +34,7 @@ in
           SPACESHIP_BATTERY_PREFIX = "🔋";
           ZSH_AUTOSUGGEST_STRATEGY = [ "history" ];
           GPG_TTY = "$(tty)";
-          EDITOR = "vim";
+          EDITOR = "nvim";
           SPACESHIP_NIXSHELL_SHOW = "\${SPACESHIP_NIXSHELL_SHOW=true}";
           SPACESHIP_NIXSHELL_PREFIX = "\${SPACESHIP_NIXSHELL_PREFIX=\"nix-shell \"}";
           SPACESHIP_NIXSHELL_SUFFIX = "\${SPACESHIP_NIXSHELL_SUFFIX=\"$SPACESHIP_PROMPT_DEFAULT_SUFFIX\"}";
