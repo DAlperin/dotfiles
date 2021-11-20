@@ -7,6 +7,7 @@
   home.packages = with pkgs; [
     brave
     neovim
+    _1password-gui
   ];
   
   programs.vscode.enable = true;
