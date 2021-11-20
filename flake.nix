@@ -11,17 +11,33 @@
   outputs = inputs@{ self, home-manager, nixpkgs, ... }:
     let
       system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = [
+          (import ./overlays.nix)
+        ];
+      };
+      mkComputer = configurationNix: extraModules: inputs.nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit system inputs pkgs; };
+        modules = [
+          configurationNix
+
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.dovalperin = import ./home/nixos.nix;
+          }
+        ] ++ extraModules;
+      };
     in
     {
       nixosConfigurations = {
-        nixosvm = inputs.nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = [
-            ./machines/nixosvm.nix
-            home-manager.nixosModules.home-manager
-          ];
-          specialArgs = { inherit inputs; };
-        };
+        nixosvm = mkComputer
+          ./machines/nixosvm.nix
+          [];
       };
       homeConfigurations =
         let
@@ -41,7 +57,7 @@
         {
           "DovDev" = mkHomeConfig {
             imports = [
-              ./home.nix
+              ./home/home.nix
               ./machines/DovDevUbuntu.nix
             ];
           };

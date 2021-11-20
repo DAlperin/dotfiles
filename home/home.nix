@@ -1,9 +1,8 @@
+#Shared by all machines
 { config, pkgs, ... }:
-
 {
-  imports = [ ./modules/zsh.nix ];
-  # Home Manager needs a bit of information about you and the
-  # paths it should manage.
+  imports = [ ../modules/zsh.nix ];
+
   home.username = "dovalperin";
   home.homeDirectory = "/home/dovalperin";
 

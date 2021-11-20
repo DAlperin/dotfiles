@@ -11,9 +11,8 @@ mkfs.fat -F 32 -n boot /dev/vda3
 mount /dev/disk/by-label/nixos /mnt
 mkdir -p /mnt/boot
 mount /dev/disk/by-label/boot /mnt/boot
-mkdir -p /mnt/nixos
-git clone https://github.com/DAlperin/dotfiles.git /mnt/nixos
-nixos-generate-config --show-hardware-config | tee /mnt/nixos/hardware-configuration.nix
-cd /mnt/nixos
+git clone https://github.com/DAlperin/dotfiles.git /mnt/etc/nixos
+nixos-generate-config --root /mnt --show-hardware-config | tee /mnt/etc/nixos/hardware-configuration.nix
+cd /mnt/etc/nixos
 git add hardware-configuration.nix
 nixos-install --root /mnt --impure --flake .#nixosvm
