@@ -7,10 +7,15 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  nix.extraOptions = ''
-      experimental-features = nix-command flakes
-   '';
-  
+  nix =
+    {
+      extraOptions = ''
+        experimental-features = nix-command flakes
+      '';
+      trustedUsers = [ "root" "dovalperin" ];
+    };
+
+
   networking.networkmanager.enable = true;
   networking.useDHCP = false; #global flag deprecated
   networking.interfaces.enp1s0.useDHCP = true;
@@ -18,11 +23,16 @@
 
   services.xserver.enable = true;
   services.xserver.displayManager.gdm.enable = true;
+  services.xserver.displayManager.gdm.wayland = false;
   services.xserver.desktopManager.gnome.enable = true;
+
   environment.systemPackages = with pkgs; [
     gnomeExtensions.appindicator
+    gnomeExtensions.adwaita-theme-switcher
   ];
+
   services.udev.packages = with pkgs; [ gnome3.gnome-settings-daemon ];
+
 
   users.users.dovalperin = {
     isNormalUser = true;
@@ -31,8 +41,11 @@
   };
 
   home-manager = {
-    users = { dovalperin = ../home.nix; };
-    useGlobalPkgs = true;
+    users.dovalperin = {
+      home.packages = [
+        pkgs.brave
+      ];
+    };
   };
 
   # This value determines the NixOS release from which the default
