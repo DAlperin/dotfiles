@@ -1,9 +1,25 @@
-{ config, pkgs, ... }:
+{ config, pkgs, modulesPath, ... }:
 {
   imports =
-    [
-      ../hardware-configuration.nix
+  [ (modulesPath + "/profiles/qemu-guest.nix")
+  ];
+
+  boot.kernelModules = [ "kvm-intel" ];
+
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/0dbfa77a-6643-46d2-89fa-8d986eaba466";
+      fsType = "ext4";
+    };
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/BE60-28AB";
+      fsType = "vfat";
+    };
+
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/3968e636-bff7-4802-8c17-3a06858fb15a"; }
     ];
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
