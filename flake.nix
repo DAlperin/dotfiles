@@ -38,8 +38,8 @@
         nixosvm = mkComputer
           ./machines/nixosvm.nix
           [
-	    ./modules/gnome.nix
-	  ];
+            ./modules/gnome.nix
+          ];
       };
       homeConfigurations =
         let
