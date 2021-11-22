@@ -4,6 +4,5 @@ self: super: {
   };
   _1password-gui = super._1password-gui.overrideAttrs (old: {
     version = "8.3.0";
-    environment.pathsToLink = [ /share/polkit-1 ];
   });
 }
