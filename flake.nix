@@ -41,9 +41,10 @@
             ./modules/gnome.nix
 	    ./modules/1password.nix
             ./modules/tailscale.nix
+            ./modules/ssh
           ]
 	  {
-            tskey = "tskey-knhGk75CNTRL-jCr4HofaqNMTGQa47CKVVN";
+            tskey = "tskey-knNVuH6CNTRL-JKERvdZq7G1bLjJw8rvTP";
 	  };
       };
       homeConfigurations =
