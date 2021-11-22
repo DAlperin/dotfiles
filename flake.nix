@@ -18,9 +18,9 @@
           (import ./overlays.nix)
         ];
       };
-      mkComputer = configurationNix: extraModules: inputs.nixpkgs.lib.nixosSystem {
+      mkComputer = configurationNix: extraModules: extraArgs: inputs.nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit system inputs pkgs; };
+        specialArgs = { inherit system inputs pkgs extraArgs; };
         modules = [
           configurationNix
 
@@ -40,7 +40,11 @@
           [
             ./modules/gnome.nix
 	    ./modules/1password.nix
-          ];
+            ./modules/tailscale.nix
+          ]
+	  {
+            tskey = "tskey-knhGk75CNTRL-jCr4HofaqNMTGQa47CKVVN";
+	  };
       };
       homeConfigurations =
         let
