@@ -39,6 +39,7 @@
           ./machines/nixosvm.nix
           [
             ./modules/gnome.nix
+	    ./modules/1password.nix
           ];
       };
       homeConfigurations =

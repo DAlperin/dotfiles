@@ -7,6 +7,7 @@
 
   environment.systemPackages = with pkgs; [
     gnomeExtensions.appindicator
+    gnomeExtensions.advanced-alttab-window-switcher
     gnomeExtensions.adwaita-theme-switcher
   ];
 
