@@ -1,4 +1,4 @@
-{pkgs, tskey, extraArgs, ...}:
+{ pkgs, tskey, extraArgs, ... }:
 {
   environment.systemPackages = with pkgs; [
     tailscale

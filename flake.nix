@@ -39,13 +39,13 @@
           ./machines/nixosvm.nix
           [
             ./modules/gnome.nix
-	    ./modules/1password.nix
+            ./modules/1password.nix
             ./modules/tailscale.nix
             ./modules/ssh
           ]
-	  {
+          {
             tskey = "tskey-knNVuH6CNTRL-JKERvdZq7G1bLjJw8rvTP";
-	  };
+          };
       };
       homeConfigurations =
         let

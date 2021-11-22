@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    glib 
+    glib
   ];
 
   installPhase = ''

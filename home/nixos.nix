@@ -8,6 +8,6 @@
     brave
     neovim
   ];
-  
+
   programs.vscode.enable = true;
 }
