@@ -1,8 +1,6 @@
 self: super: {
   gnomeExtensions = super.gnomeExtensions // {
     adwaita-theme-switcher = super.callPackage ./pkgs/adwaita-theme-switcher.nix { };
-  };
-  gnomeExtensions = super.gnomeExtensions // {
     advanced-alttab-window-switcher = super.callPackage ./pkgs/advanced-alt-tab.nix { };
   };
   _1password-gui = super._1password-gui.overrideAttrs (old: {
