@@ -7,6 +7,8 @@
   home.packages = with pkgs; [
     brave
     neovim
+    element-desktop
+    discord
   ];
 
   programs.vscode.enable = true;
