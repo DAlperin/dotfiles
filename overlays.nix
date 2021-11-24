@@ -6,4 +6,5 @@ self: super: {
   _1password-gui = super._1password-gui.overrideAttrs (old: {
     version = "8.3.0";
   });
+  tailscale = super.callPackage ./pkgs/tailscale.nix { };
 }
