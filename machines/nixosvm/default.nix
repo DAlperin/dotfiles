@@ -39,14 +39,6 @@
   networking.interfaces.enp1s0.useDHCP = true;
   networking.hostName = "nixosvm";
 
-  users.users.dovalperin = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-    shell = pkgs.zsh;
-    openssh.authorizedKeys.keys = config.dov.ssh.authorizedKeys;
-  };
-
-  programs.zsh.enable = true;
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

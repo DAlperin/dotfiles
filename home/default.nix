@@ -1,8 +1,6 @@
 #Shared by all machines
 { config, pkgs, ... }:
 {
-  imports = [ ../modules/zsh.nix ];
-
   home.username = "dovalperin";
   home.homeDirectory = "/home/dovalperin";
 

@@ -15,10 +15,10 @@
         inherit system;
         config.allowUnfree = true;
         overlays = [
-          (import ./overlays.nix)
+          (import ./overlays)
         ];
       };
-      mkComputer = configurationNix: extraModules: extraArgs: inputs.nixpkgs.lib.nixosSystem {
+      mkComputer = configurationNix: extraModules: extraHomeModules: extraArgs: inputs.nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit system inputs pkgs extraArgs; };
         modules = [
@@ -28,7 +28,9 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.dovalperin = import ./home/nixos.nix;
+            home-manager.users.dovalperin = {
+	      imports = [ ./home ./home/nixos ] ++ extraHomeModules;
+	    };
           }
         ] ++ extraModules;
       };
@@ -36,13 +38,17 @@
     {
       nixosConfigurations = {
         nixosvm = mkComputer
-          ./machines/nixosvm.nix
+          ./machines/nixosvm
           [
-            ./modules/gnome.nix
-            ./modules/1password.nix
-            ./modules/tailscale.nix
+            ./modules/gnome
+            ./modules/1password
+            ./modules/tailscale
             ./modules/ssh
+	    ./users/dovalperin
           ]
+	  [
+	    ./modules/zsh
+	  ]
           {
             tskey = "tskey-knNVuH6CNTRL-JKERvdZq7G1bLjJw8rvTP";
           };
@@ -65,8 +71,8 @@
         {
           "DovDev" = mkHomeConfig {
             imports = [
-              ./home/home.nix
-              ./machines/DovDevUbuntu.nix
+              ./home
+              ./machines/DovDevUbuntu
             ];
           };
         };
