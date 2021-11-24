@@ -29,8 +29,8 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.dovalperin = {
-	      imports = [ ./home ./home/nixos ] ++ extraHomeModules;
-	    };
+              imports = [ ./home ./home/nixos ] ++ extraHomeModules;
+            };
           }
         ] ++ extraModules;
       };
@@ -44,11 +44,11 @@
             ./modules/1password
             ./modules/tailscale
             ./modules/ssh
-	    ./users/dovalperin
+            ./users/dovalperin
           ]
-	  [
-	    ./modules/zsh
-	  ]
+          [
+            ./modules/zsh
+          ]
           {
             tskey = "tskey-knNVuH6CNTRL-JKERvdZq7G1bLjJw8rvTP";
           };
@@ -71,6 +71,7 @@
         {
           "DovDev" = mkHomeConfig {
             imports = [
+              ./modules/zsh
               ./home
               ./machines/DovDevUbuntu
             ];
