@@ -18,17 +18,19 @@
           (import ./overlays)
         ];
       };
-      mkComputer = configurationNix: extraModules: extraHomeModules: extraArgs: inputs.nixpkgs.lib.nixosSystem {
+      users = import ./users;
+      mkComputer = configurationNix: userName: extraModules: extraHomeModules: extraArgs: inputs.nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit system inputs pkgs extraArgs; };
         modules = [
           configurationNix
+          "./users/${userName}"
 
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.dovalperin = {
+            home-manager.users."${userName}" = {
               imports = [ ./home ./home/nixos ] ++ extraHomeModules;
             };
           }
@@ -38,13 +40,13 @@
     {
       nixosConfigurations = {
         nixosvm = mkComputer
-          ./machines/nixosvm
+          ./machines/nixosvm #machine specific configuration
+          "dovalperin"
           [
             ./modules/gnome
             ./modules/1password
             ./modules/tailscale
             ./modules/ssh
-            ./users/dovalperin
           ]
           [
             ./modules/zsh
@@ -62,20 +64,20 @@
             home.username = "dovalperin";
             home.homeDirectory = "/home/dovalperin";
           };
-          mkHomeConfig = cfg: home-manager.lib.homeManagerConfiguration {
+          mkHomeConfig = extraModules: home-manager.lib.homeManagerConfiguration {
             inherit username system stateVersion;
             homeDirectory = "/home/${username}";
-            configuration = baseConfiguration // cfg;
+            configuration = baseConfiguration // {
+              imports = [ ./home ] ++ extraModules;
+            };
           };
         in
         {
-          "DovDev" = mkHomeConfig {
-            imports = [
+          "DovDev" = mkHomeConfig
+            [
               ./modules/zsh
-              ./home
               ./machines/DovDevUbuntu
             ];
-          };
         };
     };
 }
