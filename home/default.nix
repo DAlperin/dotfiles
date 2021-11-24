@@ -1,9 +1,6 @@
 #Shared by all machines
 { config, pkgs, ... }:
 {
-  home.username = "dovalperin";
-  home.homeDirectory = "/home/dovalperin";
-
   home.packages = [
     pkgs.yarn
     pkgs.ripgrep

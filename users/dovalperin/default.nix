@@ -1,5 +1,11 @@
 { pkgs, config, ... }:
 {
+  home-manager.users.dovalperin = {
+    home.username = "dovalperin";
+    home.homeDirectory = "/home/dovalperin";
+    imports = [ ./../../home ./../../home/nixos ];
+  };
+
   users.users.dovalperin = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];

@@ -18,20 +18,19 @@
           (import ./overlays)
         ];
       };
-      users = import ./users;
       mkComputer = configurationNix: userName: extraModules: extraHomeModules: extraArgs: inputs.nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit system inputs pkgs extraArgs; };
         modules = [
           configurationNix
-          "./users/${userName}"
+          (./. + "/users/${userName}")
 
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users."${userName}" = {
-              imports = [ ./home ./home/nixos ] ++ extraHomeModules;
+              imports = extraHomeModules;
             };
           }
         ] ++ extraModules;
@@ -41,19 +40,19 @@
       nixosConfigurations = {
         nixosvm = mkComputer
           ./machines/nixosvm #machine specific configuration
-          "dovalperin"
+          "dovalperin" #default user
           [
             ./modules/gnome
             ./modules/1password
             ./modules/tailscale
             ./modules/ssh
-          ]
+          ] #modules to load
           [
             ./modules/zsh
-          ]
+          ] #modules to be loaded by home-manager
           {
             tskey = "tskey-knNVuH6CNTRL-JKERvdZq7G1bLjJw8rvTP";
-          };
+          }; #extra arguments to pass to all the modules
       };
       homeConfigurations =
         let

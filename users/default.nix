@@ -1,3 +1,0 @@
-{
-  dovalperin = callPackage ./dovalperin {};
-}
