@@ -13,6 +13,7 @@
     pkgs.exa
     pkgs.rustup
     pkgs.nodejs
+    pkgs.niv
   ];
 
   dov = {
