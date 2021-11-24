@@ -1,4 +1,4 @@
-{pkgs, config, ...}:
+{ pkgs, config, ... }:
 {
   users.users.dovalperin = {
     isNormalUser = true;

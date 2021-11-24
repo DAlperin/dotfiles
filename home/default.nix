@@ -12,6 +12,7 @@
     pkgs.rustup
     pkgs.nodejs
     pkgs.niv
+    pkgs.nixpkgs-fmt
   ];
 
   dov = {
