@@ -10,6 +10,10 @@
     pkgs.nodejs
     pkgs.niv
     pkgs.nixpkgs-fmt
+    pkgs.strace
+    pkgs.lsof
+    pkgs.gdb
+    pkgs.cutter
   ];
 
   dov = {
