@@ -9,6 +9,7 @@
     gnomeExtensions.appindicator
     gnomeExtensions.advanced-alttab-window-switcher
     gnomeExtensions.adwaita-theme-switcher
+    gnome.gnome-tweaks
   ];
 
   services.udev.packages = with pkgs; [ gnome3.gnome-settings-daemon ];
