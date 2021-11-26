@@ -14,6 +14,9 @@
     pkgs.lsof
     pkgs.gdb
     pkgs.cutter
+    pkgs.youtube-dl
+    pkgs.spotify
+    pkgs.ffmpeg
   ];
 
   dov = {

@@ -54,21 +54,21 @@
           tskey = "tskey-knNVuH6CNTRL-JKERvdZq7G1bLjJw8rvTP";
         }; #extra arguments to pass to all the modules
       nixosConfigurations.DovDev = mkComputer
-         ./machines/DovDev #machine specific configuration
-         "dovalperin" #default user
-         [
-           ./modules/gnome
-           ./modules/1password
-           ./modules/tailscale
-           ./modules/ssh
-         ] #modules to load
-         [
-           ./modules/zsh
-         ] #modules to be loaded by home-manager
-         {
-           tskey = "tskey-k4V7EE5CNTRL-UAn3ojXkYAgRfC2asWN1YS";
-         }; #extra arguments to pass to all the modules
-      
+        ./machines/DovDev #machine specific configuration
+        "dovalperin" #default user
+        [
+          ./modules/gnome
+          ./modules/1password
+          ./modules/tailscale
+          ./modules/ssh
+        ] #modules to load
+        [
+          ./modules/zsh
+        ] #modules to be loaded by home-manager
+        {
+          tskey = "tskey-k4V7EE5CNTRL-UAn3ojXkYAgRfC2asWN1YS";
+        }; #extra arguments to pass to all the modules
+
       homeConfigurations =
         let
           username = "dovalperin";
