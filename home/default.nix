@@ -8,19 +8,34 @@
     pkgs.exa
     pkgs.rustup
     pkgs.nodejs
-    pkgs.niv
     pkgs.nixpkgs-fmt
-    pkgs.strace
     pkgs.lsof
-    pkgs.gdb
-    pkgs.cutter
-    pkgs.youtube-dl
     pkgs.spotify
-    pkgs.ffmpeg
+    pkgs.thunderbird
+    pkgs.ghidra-bin
+    pkgs.signal-desktop
+    pkgs.jetbrains.idea-ultimate
+    pkgs.jetbrains.clion
+    pkgs.pencil
+    pkgs.niv
+    pkgs.dig
+    pkgs.gnumake
+    pkgs.usbutils
+    pkgs.evolution
+    pkgs.nerdfonts
+    pkgs.autoconf
+    (pkgs.hiPrio pkgs.bintools)
+    pkgs.xclip
+    pkgs.wget
+    pkgs.tree-sitter
+    pkgs.exercism
+    pkgs.unzip
+    pkgs.git
   ];
 
   dov = {
     zsh.enable = true;
+    emacs.enable = true;
   };
 
   programs.home-manager.enable = true;

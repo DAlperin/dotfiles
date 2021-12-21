@@ -24,6 +24,7 @@ in
           catp = "bat --plain";
           reload = "source ~/.zshrc";
           open-profile = "nvim ~/.zshrc";
+          nd = "nix develop --command zsh";
         };
         sessionVariables = {
           SPACESHIP_PROMPT_ADD_NEWLINE = "false";
@@ -74,6 +75,9 @@ in
             fc -R ~/.zsh_history
             rm ~/.zsh_history_bad
           }
+          PATH=/home/dovalperin/.yarn/bin:$PATH
+          PATH=/home/dovalperin/.cargo/bin:$PATH
+	  PATH=/home/dovalperin/.local/bin:$PATH
         '';
         plugins = [
           {

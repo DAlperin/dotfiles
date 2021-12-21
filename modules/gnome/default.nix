@@ -9,6 +9,7 @@
     gnomeExtensions.appindicator
     gnomeExtensions.advanced-alttab-window-switcher
     gnomeExtensions.adwaita-theme-switcher
+    gnomeExtensions.gtile
     gnome.gnome-tweaks
   ];
 

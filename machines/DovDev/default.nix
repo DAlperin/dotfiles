@@ -10,8 +10,8 @@
     ];
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
+  boot.kernelPackages = pkgs.linuxPackages_5_15;
   boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
   boot.kernelParams = [ "acpi_osi=linux" ];
 
   boot.loader.systemd-boot.enable = true;
@@ -24,7 +24,7 @@
     enableCryptodisk = true;
     device = "nodev";
   };
-
+  sound.enable = true;
   boot.initrd.luks.devices = {
     crypted = {
       device = "/dev/disk/by-uuid/8a5c62fa-5f27-489f-ab0c-3fc4e9aaba8b";
@@ -57,7 +57,8 @@
     };
 
   networking.networkmanager.enable = true;
-  networking.wireless.enable = lib.mkForce false;
+  networking.networkmanager.insertNameservers = [ "1.1.1.1" "8.8.8.8" ];
+  #networking.wireless.enable = true;
   #networking.useDHCP = false; #global flag deprecated
   #networking.interfaces.enp1s0.useDHCP = true;
   networking.hostName = "DovDev";
