@@ -21,10 +21,5 @@ in
         pkgs.ispell
         pkgs.mu
       ];
-      home.file.".doom.d" = {
-        source = ./doom.d;
-        recursive = true;
-        onChange = "~/.emacs.d/bin/doom sync";
-      };
     };
 }
