@@ -66,6 +66,7 @@
   (define-key evil-visual-state-map (kbd "M-j") 'drag-stuff-down))
 
 (add-to-list '+emacs-lisp-disable-flycheck-in-dirs "/etc/nixos/emacs")
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one

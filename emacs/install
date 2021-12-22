@@ -1,0 +1,13 @@
+#!/bin/env bash
+
+if ! command -v emacs &> /dev/null
+then
+    echo "emacs is not on your path"
+    echo "have you run nixos-rebuild switch?"
+    exit
+fi
+
+git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+mkdir -p ~/.doom.d
+ln -s ./*.el ~/.doom.d
+~/.emacs.d/bin/doom install
