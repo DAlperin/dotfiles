@@ -20,6 +20,7 @@ in
         pkgs.libtool
         pkgs.ispell
         pkgs.mu
+        pkgs.pandoc
       ];
     };
 }

@@ -48,8 +48,19 @@
 (after! lsp-mode
   (advice-remove #'lsp #'+lsp-dont-prompt-to-install-servers-maybe-a))
 
+(setq +lsp-prompt-to-install-server 'quiet)
+
 (after! org-mode
   (setq org-agenda-timegrid-use-ampm 1))
+
+(map! (:after evil-org
+       :map evil-org-mode-map
+       :n "gk" (cmd! (if (org-on-heading-p)
+                         (org-backward-element)
+                       (evil-previous-visual-line)))
+       :n "gj" (cmd! (if (org-on-heading-p)
+                         (org-forward-element)
+                       (evil-next-visual-line)))))
 
 (defun send-C-space ()
   (interactive)
@@ -66,6 +77,8 @@
   (define-key evil-visual-state-map (kbd "M-j") 'drag-stuff-down))
 
 (add-to-list '+emacs-lisp-disable-flycheck-in-dirs "/etc/nixos/emacs")
+
+(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
