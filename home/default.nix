@@ -31,6 +31,11 @@
     pkgs.exercism
     pkgs.unzip
     pkgs.git
+    pkgs.direnv
+    pkgs.matlab
+    pkgs.matlab-shell
+    pkgs.matlab-mlint
+    pkgs.matlab-mex
   ];
 
   dov = {

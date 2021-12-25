@@ -6,9 +6,10 @@
     home-manager.url = "github:nix-community/home-manager/release-21.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     emacs-overlay.url = "github:nix-community/emacs-overlay/master";
+    nix-matlab.url = "gitlab:doronbehar/nix-matlab";
   };
 
-  outputs = inputs@{ self, home-manager, nixpkgs, nixos-hardware, emacs-overlay, ... }:
+  outputs = inputs@{ self, home-manager, nixpkgs, nixos-hardware, emacs-overlay, nix-matlab, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -17,6 +18,7 @@
         overlays = [
           (import ./overlays)
           emacs-overlay.overlay
+          nix-matlab.overlay
         ];
       };
       mkComputer = configurationNix: userName: extraModules: extraHomeModules: extraArgs: inputs.nixpkgs.lib.nixosSystem {
@@ -60,7 +62,7 @@
           [
             ./modules/gnome
             ./modules/1password
-            #./modules/tailscale
+            ./modules/tailscale
             ./modules/ssh
             ./modules/zoom
             ./modules/browsers
@@ -72,7 +74,7 @@
             ./modules/emacs
           ] #modules to be loaded by home-manager
           {
-            tskey = "tskey-k4V7EE5CNTRL-UAn3ojXkYAgRfC2asWN1YS";
+            tskey = "tskey-kgeK3F1CNTRL-FQepgBXb9fNjgEcoQATQY";
           }; #extra arguments to pass to all the modules
       };
       homeConfigurations =
