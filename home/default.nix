@@ -1,41 +1,41 @@
 #Shared by all machines
 { config, pkgs, ... }:
 {
-  home.packages = [
-    pkgs.yarn
-    pkgs.ripgrep
-    pkgs.bat
-    pkgs.exa
-    pkgs.rustup
-    pkgs.nodejs
-    pkgs.nixpkgs-fmt
-    pkgs.lsof
-    pkgs.spotify
-    pkgs.thunderbird
-    pkgs.ghidra-bin
-    pkgs.signal-desktop
-    pkgs.jetbrains.idea-ultimate
-    pkgs.jetbrains.clion
-    pkgs.pencil
-    pkgs.niv
-    pkgs.dig
-    pkgs.gnumake
-    pkgs.usbutils
-    pkgs.evolution
-    pkgs.nerdfonts
-    pkgs.autoconf
-    (pkgs.hiPrio pkgs.bintools)
-    pkgs.xclip
-    pkgs.wget
-    pkgs.tree-sitter
-    pkgs.exercism
-    pkgs.unzip
-    pkgs.git
-    pkgs.direnv
-    pkgs.matlab
-    pkgs.matlab-shell
-    pkgs.matlab-mlint
-    pkgs.matlab-mex
+  home.packages = with pkgs; [
+    yarn
+    ripgrep
+    bat
+    exa
+    rustup
+    nodejs-16_x
+    nixpkgs-fmt
+    lsof
+    spotify
+    thunderbird
+    ghidra-bin
+    signal-desktop
+    jetbrains.idea-ultimate
+    jetbrains.clion
+    pencil
+    niv
+    dig
+    gnumake
+    usbutils
+    evolution
+    nerdfonts
+    autoconf
+    (hiPrio bintools)
+    xclip
+    wget
+    tree-sitter
+    exercism
+    unzip
+    git
+    direnv
+    matlab
+    matlab-shell
+    matlab-mlint
+    matlab-mex
   ];
 
   dov = {
@@ -50,11 +50,18 @@
     enableZshIntegration = true;
   };
 
+  services.gpg-agent.enable = true;
+  programs.gpg.enable = true;
+
   programs.git = {
     enable = true;
     userName = "Dov Alperin";
     userEmail = "dzalperin@gmail.com";
     delta.enable = true;
+    signing = {
+      key = "7F2C07B91B52BB61";
+      signByDefault = true;
+    };
     extraConfig = {
       init = {
         defaultBranch = "main";

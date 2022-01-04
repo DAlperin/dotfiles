@@ -70,6 +70,8 @@
       :map vterm-mode-map
       :ni "C-SPC" #'send-C-space)
 
+(global-set-key (kbd "<escape>")      'keyboard-escape-quit)
+
 (after! drag-stuff
   (define-key evil-normal-state-map (kbd "M-k") 'drag-stuff-up)
   (define-key evil-normal-state-map (kbd "M-j") 'drag-stuff-down)

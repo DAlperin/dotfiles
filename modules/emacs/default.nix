@@ -22,5 +22,8 @@ in
         pkgs.mu
         pkgs.pandoc
       ];
+
+      #For emacs daemon
+      services.emacs.enable = true;
     };
 }
