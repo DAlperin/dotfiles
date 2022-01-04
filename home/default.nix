@@ -36,6 +36,7 @@
     matlab-shell
     matlab-mlint
     matlab-mex
+    git-privacy
   ];
 
   dov = {
@@ -56,7 +57,7 @@
   programs.git = {
     enable = true;
     userName = "Dov Alperin";
-    userEmail = "dzalperin@gmail.com";
+    userEmail = "git@dov.dev";
     delta.enable = true;
     signing = {
       key = "7F2C07B91B52BB61";
