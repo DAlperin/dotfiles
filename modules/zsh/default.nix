@@ -75,13 +75,13 @@ in
                   fc -R ~/.zsh_history
                   rm ~/.zsh_history_bad
                 }
-		function copy {
+                function copy {
                   if [ ! -n "$1" ]; then
                     echo "Enter a filename"
                   else
                     xclip $1 -selection clipboard
-		  fi
-		}
+                  fi
+                }
                 PATH=/home/dovalperin/.yarn/bin:$PATH
                 PATH=/home/dovalperin/.cargo/bin:$PATH
                 PATH=/home/dovalperin/.local/bin:$PATH
