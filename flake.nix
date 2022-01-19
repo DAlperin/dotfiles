@@ -14,22 +14,13 @@
     let
       system = "x86_64-linux";
       pkgs =
-        let
-          overlay-unstable = final: prev: {
-            unstable = import unstable {
-              system = "${prev.system}";
-              config.allowUnfree = true;
-            };
-          };
-        in
         import nixpkgs {
           inherit system;
           config.allowUnfree = true;
           overlays = [
-            (import ./overlays)
+            (import ./overlays { unstable = unstable; })
             emacs-overlay.overlay
             nix-matlab.overlay
-            overlay-unstable
           ];
         };
       mkComputer = configurationNix: userName: extraModules: extraHomeModules: extraArgs: inputs.nixpkgs.lib.nixosSystem {

@@ -1,3 +1,4 @@
+{ unstable }:
 self: super: {
   gnomeExtensions = super.gnomeExtensions // {
     adwaita-theme-switcher = super.callPackage ../pkgs/adwaita-theme-switcher.nix { };
@@ -11,4 +12,8 @@ self: super: {
     };
   });
   tailscale = super.callPackage ../pkgs/tailscale.nix { };
+  unstable = import unstable {
+    system = "${super.system}";
+    config.allowUnfree = true;
+  };
 }

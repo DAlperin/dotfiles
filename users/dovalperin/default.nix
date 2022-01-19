@@ -5,36 +5,36 @@
     home.homeDirectory = "/home/dovalperin";
     imports = [ ./../../home ./../../home/nixos ];
 
-  home.packages = with pkgs; [
-    yarn
-    bat
-    exa
-    rustup
-    nodejs-16_x
-    lsof
-    spotify
-    thunderbird
-    ghidra-bin
-    signal-desktop
-    unstable.jetbrains.idea-ultimate
-    unstable.jetbrains.clion
-    pencil
-    niv
-    dig
-    usbutils
-    evolution
-    nerdfonts
-    (hiPrio bintools)
-    xclip
-    tree-sitter
-    exercism
-    direnv
-    matlab
-    matlab-shell
-    matlab-mlint
-    matlab-mex
-    git-privacy
-  ];
+    home.packages = with pkgs; [
+      yarn
+      bat
+      exa
+      rustup
+      nodejs-16_x
+      lsof
+      spotify
+      thunderbird
+      ghidra-bin
+      signal-desktop
+      unstable.jetbrains.idea-ultimate
+      unstable.jetbrains.clion
+      pencil
+      niv
+      dig
+      usbutils
+      evolution
+      nerdfonts
+      (hiPrio bintools)
+      xclip
+      tree-sitter
+      exercism
+      direnv
+      matlab
+      matlab-shell
+      matlab-mlint
+      matlab-mex
+      git-privacy
+    ];
     # These are loaded by home-manager. Not the system
     dov = {
       zsh.enable = true;
