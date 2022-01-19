@@ -2,6 +2,7 @@
   description = "Dovs nixos configs";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-21.11";
+    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = github:NixOS/nixos-hardware/master;
     home-manager.url = "github:nix-community/home-manager/release-21.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -9,18 +10,28 @@
     nix-matlab.url = "gitlab:doronbehar/nix-matlab";
   };
 
-  outputs = inputs@{ self, home-manager, nixpkgs, nixos-hardware, emacs-overlay, nix-matlab, ... }:
+  outputs = inputs@{ self, home-manager, nixpkgs, unstable, nixos-hardware, emacs-overlay, nix-matlab, ... }:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-        overlays = [
-          (import ./overlays)
-          emacs-overlay.overlay
-          nix-matlab.overlay
-        ];
-      };
+      pkgs =
+        let
+          overlay-unstable = final: prev: {
+            unstable = import unstable {
+              system = "${prev.system}";
+              config.allowUnfree = true;
+            };
+          };
+        in
+        import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          overlays = [
+            (import ./overlays)
+            emacs-overlay.overlay
+            nix-matlab.overlay
+            overlay-unstable
+          ];
+        };
       mkComputer = configurationNix: userName: extraModules: extraHomeModules: extraArgs: inputs.nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit system inputs pkgs extraArgs nixos-hardware; };

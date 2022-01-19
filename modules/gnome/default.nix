@@ -11,6 +11,8 @@
     gnomeExtensions.adwaita-theme-switcher
     gnomeExtensions.gtile
     gnome.gnome-tweaks
+    albert
+    wmctrl
   ];
 
   services.udev.packages = with pkgs; [ gnome3.gnome-settings-daemon ];

@@ -42,49 +42,49 @@ in
           SPACESHIP_NIXSHELL_SYMBOL = "\${SPACESHIP_NIXSHELL_SYMBOL=\"❄️\"}";
         };
         initExtra = ''
-                bindkey '^ ' autosuggest-accept
+          bindkey '^ ' autosuggest-accept
 
-                spaceship_nixshell() {
-                  [[ $SPACESHIP_NIXSHELL_SHOW == false ]] && return
-                  [[ -z $IN_NIX_SHELL ]] && return
-                  spaceship::section \
-                    "yellow" \
-                    "$SPACESHIP_NIXSHELL_PREFIX" \
-                    "$SPACESHIP_NIXSHELL_SYMBOL $IN_NIX_SHELL" \
-                    "$SPACESHIP_NIXSHELL_SUFFIX"
-                }
+          spaceship_nixshell() {
+            [[ $SPACESHIP_NIXSHELL_SHOW == false ]] && return
+            [[ -z $IN_NIX_SHELL ]] && return
+            spaceship::section \
+              "yellow" \
+              "$SPACESHIP_NIXSHELL_PREFIX" \
+              "$SPACESHIP_NIXSHELL_SYMBOL $IN_NIX_SHELL" \
+              "$SPACESHIP_NIXSHELL_SUFFIX"
+          }
 
-                # This is a hack and assumes that nixshell will always be first if it is present at all
-                if [ $SPACESHIP_PROMPT_ORDER[1] != nixshell ]; then
-                  SPACESHIP_PROMPT_ORDER=(nixshell $SPACESHIP_PROMPT_ORDER)
-                fi
+          # This is a hack and assumes that nixshell will always be first if it is present at all
+          if [ $SPACESHIP_PROMPT_ORDER[1] != nixshell ]; then
+            SPACESHIP_PROMPT_ORDER=(nixshell $SPACESHIP_PROMPT_ORDER)
+          fi
 
-                function move {
-                  if [ ! -n "$1" ]; then
-                    echo "Enter a directory name"
-                  elif [ -d $1 ]; then
-                    echo "\`$1' already exists"
-                  else
-                    mkdir $1 && cd $1
-                  fi
-                }
+          function move {
+            if [ ! -n "$1" ]; then
+              echo "Enter a directory name"
+            elif [ -d $1 ]; then
+              echo "\`$1' already exists"
+            else
+              mkdir $1 && cd $1
+            fi
+          }
 
-                function zsh_history_fix {
-                  mv ~/.zsh_history ~/.zsh_history_bad
-                  strings ~/.zsh_history_bad > ~/.zsh_history
-                  fc -R ~/.zsh_history
-                  rm ~/.zsh_history_bad
-                }
-                function copy {
-                  if [ ! -n "$1" ]; then
-                    echo "Enter a filename"
-                  else
-                    xclip $1 -selection clipboard
-                  fi
-                }
-                PATH=/home/dovalperin/.yarn/bin:$PATH
-                PATH=/home/dovalperin/.cargo/bin:$PATH
-                PATH=/home/dovalperin/.local/bin:$PATH
+          function zsh_history_fix {
+            mv ~/.zsh_history ~/.zsh_history_bad
+            strings ~/.zsh_history_bad > ~/.zsh_history
+            fc -R ~/.zsh_history
+            rm ~/.zsh_history_bad
+          }
+          function copy {
+            if [ ! -n "$1" ]; then
+              echo "Enter a filename"
+            else
+              xclip $1 -selection clipboard
+            fi
+          }
+          PATH=/home/dovalperin/.yarn/bin:$PATH
+          PATH=/home/dovalperin/.cargo/bin:$PATH
+          PATH=/home/dovalperin/.local/bin:$PATH
         '';
         plugins = [
           {

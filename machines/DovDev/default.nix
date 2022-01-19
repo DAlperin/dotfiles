@@ -56,12 +56,17 @@
       trustedUsers = [ "root" "dovalperin" ];
     };
 
-  networking.networkmanager.enable = true;
-  networking.networkmanager.insertNameservers = [ "1.1.1.1" "8.8.8.8" ];
-  #networking.wireless.enable = true;
-  #networking.useDHCP = false; #global flag deprecated
-  #networking.interfaces.enp1s0.useDHCP = true;
-  networking.hostName = "DovDev";
+  networking = {
+    networkmanager.enable = true;
+    networkmanager.insertNameservers = [ "1.1.1.1" "8.8.8.8" ];
+    hostName = "DovDev";
+    firewall = {
+      enable = true;
+      trustedInterfaces = [ "tailscale0" ];
+      allowedUDPPorts = [ config.services.tailscale.port ];
+      allowedTCPPorts = [ 22 ];
+    };
+  };
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   system.stateVersion = "21.11";
