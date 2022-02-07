@@ -1,6 +1,7 @@
 { pkgs, config, ... }:
 {
   home-manager.users.dovalperin = {
+    #Home manager configuration
     home.username = "dovalperin";
     home.homeDirectory = "/home/dovalperin";
     imports = [ ./../../home ./../../home/nixos ];
@@ -34,11 +35,21 @@
       matlab-mlint
       matlab-mex
       git-privacy
+      lens
+      minikube
+      kubectl
+      unstable.fluxcd
+      kubeseal
+      linode-cli
+      telnet
+      mercurial
+      krew
     ];
-    # These are loaded by home-manager. Not the system
+
     dov = {
       zsh.enable = true;
       emacs.enable = true;
+      "1password".enable = true;
     };
 
     programs.home-manager.enable = true;
@@ -84,11 +95,12 @@
   };
 
   dov = {
+    #System services
     postgres.enable = true;
-    redis.enable = true;
-    browsers.brave.enable = true;
-    "1password".enable = true;
     ssh.enable = true;
+    redis.enable = true;
+    #Stuff that needs system level access in some way
+    browsers.brave.enable = true;
     zoom.enable = true;
   };
 

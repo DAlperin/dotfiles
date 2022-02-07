@@ -11,7 +11,7 @@ in
   config = mkIf cfg.enable
     {
       environment.systemPackages = with pkgs; [
-        zoom-us
+        unstable.zoom-us
       ];
     };
 }

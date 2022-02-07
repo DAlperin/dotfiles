@@ -10,7 +10,7 @@ in
 
   config = mkIf cfg.enable
     {
-      environment.systemPackages = with pkgs; [
+      home.packages = with pkgs; [
         _1password-gui
       ];
     };

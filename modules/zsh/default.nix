@@ -40,6 +40,7 @@ in
           SPACESHIP_NIXSHELL_PREFIX = "\${SPACESHIP_NIXSHELL_PREFIX=\"nix-shell \"}";
           SPACESHIP_NIXSHELL_SUFFIX = "\${SPACESHIP_NIXSHELL_SUFFIX=\"$SPACESHIP_PROMPT_DEFAULT_SUFFIX\"}";
           SPACESHIP_NIXSHELL_SYMBOL = "\${SPACESHIP_NIXSHELL_SYMBOL=\"❄️\"}";
+          KUBECONFIG= "$HOME/.kube/config:$HOME/.kube/test-cluster-kubeconfig.yaml";
         };
         initExtra = ''
           bindkey '^ ' autosuggest-accept
@@ -85,6 +86,7 @@ in
           PATH=/home/dovalperin/.yarn/bin:$PATH
           PATH=/home/dovalperin/.cargo/bin:$PATH
           PATH=/home/dovalperin/.local/bin:$PATH
+          PATH="/home/dovalperin/.krew/bin:$PATH"
         '';
         plugins = [
           {

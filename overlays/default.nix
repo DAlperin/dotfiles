@@ -12,6 +12,7 @@ self: super: {
     };
   });
   tailscale = super.callPackage ../pkgs/tailscale.nix { };
+  kubeseal = super.callPackage ../pkgs/kubeseal.nix { };
   unstable = import unstable {
     system = "${super.system}";
     config.allowUnfree = true;

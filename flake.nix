@@ -8,9 +8,10 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     emacs-overlay.url = "github:nix-community/emacs-overlay/master";
     nix-matlab.url = "gitlab:doronbehar/nix-matlab";
+    sops-nix.url = github:Mic92/sops-nix;
   };
 
-  outputs = inputs@{ self, home-manager, nixpkgs, unstable, nixos-hardware, emacs-overlay, nix-matlab, ... }:
+  outputs = inputs@{ self, home-manager, nixpkgs, unstable, nixos-hardware, emacs-overlay, nix-matlab, sops-nix, ... }:
     let
       system = "x86_64-linux";
       pkgs =
@@ -18,6 +19,8 @@
           inherit system;
           config.allowUnfree = true;
           overlays = [
+            #We pass the 'unstable' input to overlays so it can add an 'unstable' overlay
+            #to make unstable packages available everywhere in the configuration
             (import ./overlays { unstable = unstable; })
             emacs-overlay.overlay
             nix-matlab.overlay
@@ -27,9 +30,13 @@
         inherit system;
         specialArgs = { inherit system inputs pkgs extraArgs nixos-hardware; };
         modules = [
+          #Machine config
           configurationNix
+          #User config
           (./. + "/users/${userName}")
-
+          #Secrets management
+          sops-nix.nixosModules.sops
+          #Home manager
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -63,7 +70,6 @@
           "dovalperin" #default user
           [
             ./modules/gnome
-            ./modules/1password
             ./modules/tailscale
             ./modules/ssh
             ./modules/zoom
@@ -74,11 +80,14 @@
           [
             ./modules/zsh
             ./modules/emacs
+            ./modules/1password
           ] #modules to be loaded by home-manager
           {
             tskey = "tskey-kgeK3F1CNTRL-FQepgBXb9fNjgEcoQATQY";
           }; #extra arguments to pass to all the modules
       };
+
+      #Nothing uses this anymore, should be deleted or turned into optional module
       homeConfigurations =
         let
           username = "dovalperin";
