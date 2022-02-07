@@ -42,7 +42,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users."${userName}" = {
-              imports = extraHomeModules;
+              imports = [ (./. + "/users/${userName}/home.nix") ] ++ extraHomeModules;
             };
           }
         ] ++ extraModules;
