@@ -5,6 +5,7 @@
   imports = [ ./../../home ./../../home/nixos ];
 
   home.packages = with pkgs; [
+    #pinentry
     yarn
     bat
     exa
@@ -13,15 +14,10 @@
     lsof
     spotify
     thunderbird
-    ghidra-bin
     signal-desktop
     unstable.jetbrains.idea-ultimate
     unstable.jetbrains.clion
-    pencil
-    niv
     dig
-    usbutils
-    evolution
     nerdfonts
     (hiPrio bintools)
     xclip
@@ -42,6 +38,10 @@
     telnet
     mercurial
     krew
+    wireshark
+    #gnupg
+    age
+    sops
   ];
 
   dov = {
@@ -59,6 +59,12 @@
 
   services.gpg-agent.enable = true;
   programs.gpg.enable = true;
+
+  programs.mercurial = {
+    enable = true;
+    userName = "Dov Alperin";
+    userEmail = "git@dov.dev";
+  };
 
   programs.git = {
     enable = true;

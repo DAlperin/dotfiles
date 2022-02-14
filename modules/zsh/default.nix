@@ -41,6 +41,7 @@ in
           SPACESHIP_NIXSHELL_SUFFIX = "\${SPACESHIP_NIXSHELL_SUFFIX=\"$SPACESHIP_PROMPT_DEFAULT_SUFFIX\"}";
           SPACESHIP_NIXSHELL_SYMBOL = "\${SPACESHIP_NIXSHELL_SYMBOL=\"❄️\"}";
           KUBECONFIG = "$HOME/.kube/config:$HOME/.kube/test-cluster-kubeconfig.yaml";
+          GHPACKAGESTOKEN = "$(cat /run/secrets/gh_packages_key)";
         };
         initExtra = ''
           bindkey '^ ' autosuggest-accept

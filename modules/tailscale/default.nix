@@ -1,4 +1,4 @@
-{ pkgs, tskey, extraArgs, ... }:
+{ pkgs, config, ... }:
 {
   environment.systemPackages = with pkgs; [
     tailscale
@@ -19,6 +19,7 @@
 
     # have the job run this shell script
     script = with pkgs; ''
+      key=$(cat ${config.sops.secrets.ts_key.path})
       # wait for tailscaled to settle
       sleep 2
 
@@ -29,7 +30,7 @@
       fi
 
       # otherwise authenticate with tailscale
-      ${tailscale}/bin/tailscale up -authkey ${extraArgs.tskey}
+      ${tailscale}/bin/tailscale up -authkey $key
     '';
   };
 }

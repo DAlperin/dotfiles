@@ -1,10 +1,13 @@
 { pkgs, config, ... }:
 {
+  sops.secrets.dovalperin_pass.neededForUsers = true;
+
   users.users.dovalperin = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" ];
+    extraGroups = [ "wheel" "docker" "libvirtd" ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = config.dov.ssh.authorizedKeys;
+    passwordFile = config.sops.secrets.dovalperin_pass.path;
   };
 
   dov = {
@@ -20,4 +23,16 @@
   virtualisation.docker.enable = true;
 
   programs.zsh.enable = true;
+
+  sops.age.keyFile = "/home/dovalperin/.config/sops/age/keys.txt";
+  sops.age.sshKeyPaths = [];
+  sops.defaultSopsFile = ./secrets.yaml;
+  sops.secrets = {
+    ts_key = {
+      owner = config.users.users.dovalperin.name;
+    };
+    gh_packages_key = {
+      owner = config.users.users.dovalperin.name;
+    };
+  };
 }

@@ -1,9 +1,9 @@
 { pkgs, ... }:
 {
-  services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.displayManager.gdm.wayland = false;
   services.xserver.desktopManager.gnome.enable = true;
+
+  # https://github.com/NixOS/nixpkgs/issues/75867
+  programs.ssh.askPassword = pkgs.lib.mkForce "${pkgs.gnome.seahorse.out}/libexec/seahorse/ssh-askpass";
 
   environment.systemPackages = with pkgs; [
     gnomeExtensions.appindicator
@@ -11,8 +11,9 @@
     gnomeExtensions.adwaita-theme-switcher
     gnomeExtensions.gtile
     gnome.gnome-tweaks
-    albert
     wmctrl
+    guake
+    gnvim
   ];
 
   services.udev.packages = with pkgs; [ gnome3.gnome-settings-daemon ];

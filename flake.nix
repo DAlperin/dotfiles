@@ -26,16 +26,20 @@
             nix-matlab.overlay
           ];
         };
-      mkComputer = configurationNix: userName: extraModules: extraHomeModules: extraArgs: inputs.nixpkgs.lib.nixosSystem {
+      defaultNixOptions = {
+        nix.autoOptimiseStore = true;
+      };
+      mkComputer = configurationNix: userName: extraModules: extraHomeModules: inputs.nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit system inputs pkgs extraArgs nixos-hardware; };
+        specialArgs = { inherit system inputs pkgs nixos-hardware; };
         modules = [
-          #Machine config
-          configurationNix
-          #User config
-          (./. + "/users/${userName}")
           #Secrets management
           sops-nix.nixosModules.sops
+          #Machine config
+          configurationNix
+          defaultNixOptions
+          #User config
+          (./. + "/users/${userName}")
           #Home manager
           home-manager.nixosModules.home-manager
           {
@@ -61,14 +65,12 @@
           ] #modules to load
           [
             ./modules/zsh
-          ] #modules to be loaded by home-manager
-          {
-            tskey = "tskey-knNVuH6CNTRL-JKERvdZq7G1bLjJw8rvTP";
-          }; #extra arguments to pass to all the modules
+          ]; #modules to be loaded by home-manager
         DovDev = mkComputer
           ./machines/DovDev #machine specific configuration
           "dovalperin" #default user
           [
+            ./modules/xserver
             ./modules/gnome
             ./modules/tailscale
             ./modules/ssh
@@ -81,10 +83,7 @@
             ./modules/zsh
             ./modules/emacs
             ./modules/1password
-          ] #modules to be loaded by home-manager
-          {
-            tskey = "tskey-kgeK3F1CNTRL-FQepgBXb9fNjgEcoQATQY";
-          }; #extra arguments to pass to all the modules
+          ]; #modules to be loaded by home-manager
       };
 
       #Nothing uses this anymore, should be deleted or turned into optional module
