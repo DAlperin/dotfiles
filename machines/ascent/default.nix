@@ -13,12 +13,12 @@
   '';
   fileSystems."/" =
     {
-      device = "/dev/disk/by-label/Nixos";
+      device = "/dev/sda";
       fsType = "ext4";
     };
 
   swapDevices =
-    [{ device = "/dev/disk/by-label/Swap"; }];
+    [{ device = "/dev/sdb"; }];
 
   boot.loader.grub.forceInstall = true;
   boot.loader.grub.device = "nodev";
