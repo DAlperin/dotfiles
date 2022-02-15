@@ -84,8 +84,8 @@
             ./modules/emacs
             ./modules/1password
           ]; #modules to be loaded by home-manager
-        assent = mkComputer
-          ./machines/assent
+        ascent = mkComputer
+          ./machines/ascent
           "worker"
           [
             ./modules/ssh

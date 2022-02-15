@@ -24,7 +24,7 @@
   boot.loader.grub.device = "nodev";
   boot.loader.timeout = 10;
   networking.usePredictableInterfaceNames = false;
-  networking.hostName = "assent";
+  networking.hostName = "ascent";
   networking.useDHCP = false; # Disable DHCP globally as we will not need it.
   # required for ssh?
   networking.interfaces.eth0.useDHCP = true;
