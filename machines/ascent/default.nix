@@ -13,12 +13,12 @@
   '';
   fileSystems."/" =
     {
-      device = "/dev/disk/by-uuid/60e3c41f-a210-4a11-a7a5-521ccb175654";
+      device = "/dev/disk/by-label/Nixos";
       fsType = "ext4";
     };
 
   swapDevices =
-    [{ device = "/dev/disk/by-uuid/57866925-49e8-45c6-848f-28df8f2693be"; }];
+    [{ device = "/dev/disk/by-label/Swap"; }];
 
   boot.loader.grub.forceInstall = true;
   boot.loader.grub.device = "nodev";
