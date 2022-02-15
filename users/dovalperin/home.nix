@@ -6,6 +6,8 @@
 
   home.packages = with pkgs; [
     #pinentry
+    element-desktop
+    discord
     yarn
     bat
     exa
@@ -52,6 +54,8 @@
   };
 
   programs.home-manager.enable = true;
+
+  programs.vscode.enable = true;
 
   programs.fzf = {
     enable = true;

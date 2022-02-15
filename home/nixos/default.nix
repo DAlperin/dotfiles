@@ -1,11 +1,7 @@
 # Nixos specific, does not get applied on ubuntu
 { config, pkgs, ... }: {
+  #EVERYONE gets neovim. Just in case ;)
   home.packages = with pkgs; [
-    #    brave
     neovim
-    element-desktop
-    discord
   ];
-
-  programs.vscode.enable = true;
 }
