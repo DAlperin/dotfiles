@@ -1,7 +1,7 @@
 keys:
   - &admin_dov age1qsufhm4xrvcwm3epfzmvsp8gcj5kh5q2tcgqu5hc2ucfg5ltyexslyknkz
 creation_rules:
-  - path_regex: .*.yaml
+  - path_regex: machines/DovDev/[^/]+\.yaml$
     key_groups:
     - age:
       - *admin_dov

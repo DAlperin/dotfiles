@@ -25,13 +25,15 @@
   programs.zsh.enable = true;
 
   sops.age.keyFile = "/home/dovalperin/.config/sops/age/keys.txt";
-  sops.age.sshKeyPaths = [];
-  sops.defaultSopsFile = ./secrets.yaml;
+  sops.age.sshKeyPaths = [ ];
   sops.secrets = {
     ts_key = {
       owner = config.users.users.dovalperin.name;
     };
     gh_packages_key = {
+      owner = config.users.users.dovalperin.name;
+    };
+    pia_auth = {
       owner = config.users.users.dovalperin.name;
     };
   };

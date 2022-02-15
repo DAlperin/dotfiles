@@ -84,6 +84,13 @@
             ./modules/emacs
             ./modules/1password
           ]; #modules to be loaded by home-manager
+        assent = mkComputer
+          ./machines/assent
+          "worker"
+          [
+            ./modules/ssh
+          ]
+          [];
       };
 
       #Nothing uses this anymore, should be deleted or turned into optional module

@@ -42,6 +42,7 @@
     #gnupg
     age
     sops
+    minecraft
   ];
 
   dov = {

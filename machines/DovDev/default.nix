@@ -77,4 +77,6 @@
     pkgs.gutenprint
     pkgs.hplip
   ];
+
+  sops.defaultSopsFile = ./secrets.yaml;
 }
