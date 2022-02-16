@@ -90,7 +90,7 @@
           [
             ./modules/ssh
           ]
-          [];
+          [ ];
       };
 
       #Nothing uses this anymore, should be deleted or turned into optional module
