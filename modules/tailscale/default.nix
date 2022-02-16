@@ -10,6 +10,11 @@ in
     default = "false";
   };
 
+  options.dov.tailscale.useExit = lib.mkOption {
+    type = with lib.types; uniq string;
+    default = "false";
+  };
+
   config = lib.mkIf cfg.enable
     {
 
@@ -34,6 +39,7 @@ in
     script = with pkgs; ''
       exit=${cfg.exit}
       key=$(cat ${config.sops.secrets.ts_key.path})
+      useexit=${cfg.useExit}
       # wait for tailscaled to settle
       sleep 2
 
@@ -49,7 +55,11 @@ in
         ${tailscale}/bin/tailscale up -authkey $key --advertise-exit-node
       else
         echo "exit = false"
-        ${tailscale}/bin/tailscale up -authkey $key
+        if [ $useexit = true ] ; then
+          ${tailscale}/bin/tailscale up -authkey $key --exit-node=100.94.16.88
+        else
+          ${tailscale}/bin/tailscale up -authkey $key
+        fi
       fi
     '';
   };
