@@ -19,6 +19,7 @@
     browsers.brave.enable = true;
     zoom.enable = true;
     "1password".enable = true;
+    tailscale.enable = true;
   };
 
   virtualisation.docker.enable = true;

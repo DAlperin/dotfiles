@@ -1,5 +1,18 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
+let
+  cfg = config.dov.tailscale;
+in
 {
+
+  options.dov.tailscale.enable = lib.mkEnableOption "emacs config";
+  options.dov.tailscale.exit = lib.mkOption {
+    type = with lib.types; uniq string;
+    default = "false";
+  };
+
+  config = lib.mkIf cfg.enable
+    {
+
   environment.systemPackages = with pkgs; [
     tailscale
   ];
@@ -19,6 +32,7 @@
 
     # have the job run this shell script
     script = with pkgs; ''
+      exit=${cfg.exit}
       key=$(cat ${config.sops.secrets.ts_key.path})
       # wait for tailscaled to settle
       sleep 2
@@ -30,7 +44,12 @@
       fi
 
       # otherwise authenticate with tailscale
-      ${tailscale}/bin/tailscale up -authkey $key
+      if [$exit = true] ; then
+        ${tailscale}/bin/tailscale up -authkey $key --advertise-exit-node
+      else
+        ${tailscale}/bin/tailscale up -authkey $key
+      fi
     '';
   };
+    };
 }
