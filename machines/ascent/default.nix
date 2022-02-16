@@ -34,7 +34,7 @@
   sops.defaultSopsFile = ./secrets.yaml;
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   sops.secrets.ts_key = {
-    owner = config.users.users.ascent.name;
+    owner = config.users.users.worker.name;
   };
   dov.tailscale = {
     enable = true;
