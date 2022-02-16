@@ -44,7 +44,7 @@ in
       fi
 
       # otherwise authenticate with tailscale
-      if [$exit = true] ; then
+      if [$exit = "true"] ; then
         echo "exit = true"
         ${tailscale}/bin/tailscale up -authkey $key --advertise-exit-node
       else
