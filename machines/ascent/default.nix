@@ -38,7 +38,7 @@
   };
   dov.tailscale = {
     enable = true;
-    exit = true;
+    exit = "true";
   };
   networking.hostName = "ascent";
 }
