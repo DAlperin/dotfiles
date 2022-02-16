@@ -78,11 +78,12 @@
             ./modules/browsers
             ./modules/postgresql
             ./modules/redis
+            ./modules/1password #needs to be a systemPackage to install polkit policy
           ] #modules to load
           [
             ./modules/zsh
             ./modules/emacs
-            ./modules/1password
+            #./modules/1password
           ]; #modules to be loaded by home-manager
         ascent = mkComputer
           ./machines/ascent

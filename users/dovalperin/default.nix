@@ -18,6 +18,7 @@
     #Stuff that needs system level access in some way
     browsers.brave.enable = true;
     zoom.enable = true;
+    "1password".enable = true;
   };
 
   virtualisation.docker.enable = true;

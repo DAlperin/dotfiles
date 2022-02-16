@@ -5,34 +5,23 @@
     [
       (modulesPath + "/installer/scan/not-detected.nix")
     ];
-  boot.kernelParams = [ "console=ttyS0,19200n8" ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub = {
-    enable = true;
-    version = 2;
-    extraConfig = ''
-      serial --speed=19200 --unit=0 --word=8 --parity=no --stop=1;
-      terminal_input serial;
-      terminal_output serial
-    '';
-    #forceInstall = true;
-    efiSupport = true;
-    device = "nodev";
-  };
-  fileSystems."/" =
-    {
-      device = "/dev/sda1";
-      fsType = "ext4";
-    };
-  fileSystems."/boot" = {
-    device = "/dev/sda2";
-    fsType = "vfat";
+  boot.kernelParams = [ "console=ttyS0" ];
+  boot.loader.grub.enable = true;
+  boot.loader.grub.version = 2;
+  boot.loader.grub.device = "nodev";
+  boot.loader.grub.copyKernels = true;
+  boot.loader.grub.fsIdentifier = "label";
+  boot.loader.grub.extraConfig = "serial; terminal_input serial; terminal_output serial";
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "ext4";
   };
 
   swapDevices =
-    [{ device = "/dev/sdb"; }];
+  [ { device = "/dev/disk/by-label/swap"; }
+  ];
 
   nix =
     {

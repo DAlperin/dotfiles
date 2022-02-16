@@ -50,7 +50,7 @@
   dov = {
     zsh.enable = true;
     emacs.enable = true;
-    "1password".enable = true;
+#    "1password".enable = true;
   };
 
   programs.home-manager.enable = true;
