@@ -90,6 +90,7 @@
           "worker"
           [
             ./modules/ssh
+            ./modules/tailscale
           ]
           [ ];
       };
