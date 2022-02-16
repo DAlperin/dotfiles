@@ -2,26 +2,22 @@
 
 {
   imports =
-    [
-      (modulesPath + "/installer/scan/not-detected.nix")
+    [ (modulesPath + "/profiles/qemu-guest.nix")
     ];
 
-  boot.kernelParams = [ "console=ttyS0" ];
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-  boot.loader.grub.device = "nodev";
-  boot.loader.grub.copyKernels = true;
-  boot.loader.grub.fsIdentifier = "label";
-  boot.loader.grub.extraConfig = "serial; terminal_input serial; terminal_output serial";
+  boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sd_mod" "sr_mod" ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ ];
+  boot.extraModulePackages = [ ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos";
-    fsType = "ext4";
-  };
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/b6bcf2b1-92a6-4eb8-891f-9d50e5dfa92b";
+      fsType = "ext4";
+    };
 
-  swapDevices =
-  [ { device = "/dev/disk/by-label/swap"; }
-  ];
+  swapDevices = [ ];
+
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   nix =
     {
@@ -32,9 +28,5 @@
       trustedUsers = [ "root" "worker" ];
     };
 
-  networking.usePredictableInterfaceNames = false;
   networking.hostName = "ascent";
-  networking.useDHCP = false; # Disable DHCP globally as we will not need it.
-  # required for ssh?
-  networking.interfaces.eth0.useDHCP = true;
 }
