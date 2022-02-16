@@ -6,6 +6,9 @@
       (modulesPath + "/installer/scan/not-detected.nix")
     ];
   boot.kernelParams = [ "console=ttyS0,19200n8" ];
+
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub = {
     enable = true;
     version = 2;
@@ -14,21 +17,31 @@
       terminal_input serial;
       terminal_output serial
     '';
-    forceInstall = true;
-    device = "/dev/sdc";
+    #forceInstall = true;
+    efiSupport = true;
+    device = "nodev";
   };
   fileSystems."/" =
     {
-      device = "/dev/sda";
+      device = "/dev/sda1";
       fsType = "ext4";
     };
   fileSystems."/boot" = {
-    device = "/dev/sdc";
+    device = "/dev/sda2";
     fsType = "vfat";
   };
 
   swapDevices =
     [{ device = "/dev/sdb"; }];
+
+  nix =
+    {
+      package = pkgs.nixFlakes;
+      extraOptions = ''
+        experimental-features = nix-command flakes
+      '';
+      trustedUsers = [ "root" "worker" ];
+    };
 
   networking.usePredictableInterfaceNames = false;
   networking.hostName = "ascent";
