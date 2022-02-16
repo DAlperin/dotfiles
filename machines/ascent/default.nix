@@ -8,6 +8,7 @@
   boot.kernelParams = [ "console=ttyS0,19200n8" ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.timeout = 10;
   boot.loader.grub = {
     enable = true;
     version = 2;
@@ -19,13 +20,16 @@
     '';
     forceInstall = true;
     device = "nodev";
-    timeout = 10;
   };
   fileSystems."/" =
     {
       device = "/dev/sda";
       fsType = "ext4";
     };
+  fileSystems."/boot" = {
+    device = "/dev/sdd";
+    fsType = "vfat";
+  };
 
   swapDevices =
     [{ device = "/dev/sdb"; }];
