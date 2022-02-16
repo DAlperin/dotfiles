@@ -6,20 +6,16 @@
       (modulesPath + "/installer/scan/not-detected.nix")
     ];
   boot.kernelParams = [ "console=ttyS0,19200n8" ];
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.timeout = 10;
   boot.loader.grub = {
     enable = true;
     version = 2;
-    efiSupport = true;
     extraConfig = ''
       serial --speed=19200 --unit=0 --word=8 --parity=no --stop=1;
       terminal_input serial;
       terminal_output serial
     '';
     forceInstall = true;
-    device = "nodev";
+    device = "/dev/sdc";
   };
   fileSystems."/" =
     {
@@ -27,7 +23,7 @@
       fsType = "ext4";
     };
   fileSystems."/boot" = {
-    device = "/dev/sdd";
+    device = "/dev/sdc";
     fsType = "vfat";
   };
 
