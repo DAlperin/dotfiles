@@ -10,6 +10,10 @@ in
 {
   options.dov.matrix.enable = lib.mkEnableOption "matrix home-server";
   config = lib.mkIf cfg.enable {
+    security.acme = {
+      email = "git@dov.dev";
+      acceptTerms = true;
+    };
     services.postgresql.enable = true;
     services.postgresql.initialScript = pkgs.writeText "synapse-init.sql" ''
       CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
