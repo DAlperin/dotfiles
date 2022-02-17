@@ -20,7 +20,8 @@
     zoom.enable = true;
     "1password".enable = true;
     tailscale.enable = true;
-#    tailscale.useExit = "true";
+    #this is broken do not use for now
+    #    tailscale.useExit = "true";
   };
 
   virtualisation.docker.enable = true;

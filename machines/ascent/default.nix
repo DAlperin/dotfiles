@@ -2,7 +2,8 @@
 
 {
   imports =
-    [ (modulesPath + "/profiles/qemu-guest.nix")
+    [
+      (modulesPath + "/profiles/qemu-guest.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sd_mod" "sr_mod" ];
@@ -15,7 +16,8 @@
   boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = 1;
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/b6bcf2b1-92a6-4eb8-891f-9d50e5dfa92b";
+    {
+      device = "/dev/disk/by-uuid/b6bcf2b1-92a6-4eb8-891f-9d50e5dfa92b";
       fsType = "ext4";
     };
 
@@ -31,14 +33,28 @@
       '';
       trustedUsers = [ "root" "worker" ];
     };
+
   sops.defaultSopsFile = ./secrets.yaml;
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   sops.secrets.ts_key = {
     owner = config.users.users.worker.name;
   };
+
   dov.tailscale = {
     enable = true;
     exit = "true";
   };
-  networking.hostName = "ascent";
+
+  dov.matrix.enable = true;
+
+  networking = {
+    hostName = "ascent";
+    domain = "matrix.dov.dev";
+    firewall = {
+      enable = true;
+      trustedInterfaces = [ "tailscale0" ];
+      allowedUDPPorts = [ config.services.tailscale.port ];
+      allowedTCPPorts = [ 22 80 443 ];
+    };
+  };
 }

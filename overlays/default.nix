@@ -11,7 +11,7 @@ self: super: {
       sha256 = "tnZr+qjUcJ9Fhk6RP8iwu+/JsvYSE03NHhBfhedyCTQ=";
     };
   });
-#  tailscale = super.callPackage ../pkgs/tailscale.nix { };
+  #  tailscale = super.callPackage ../pkgs/tailscale.nix { };
   kubeseal = super.callPackage ../pkgs/kubeseal.nix { };
   unstable = import unstable {
     system = "${super.system}";

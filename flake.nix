@@ -91,6 +91,7 @@
           [
             ./modules/ssh
             ./modules/tailscale
+            ./modules/matrix
           ]
           [ ];
       };
