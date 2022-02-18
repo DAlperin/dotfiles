@@ -55,7 +55,8 @@
 
   networking = {
     networkmanager.enable = true;
-    networkmanager.insertNameservers = [ "1.1.1.1" "8.8.8.8" ];
+    #Let tailscale manager this
+    #networkmanager.insertNameservers = [ "1.1.1.1" "8.8.8.8" ];
     hostName = "DovDev";
     firewall = {
       enable = true;
