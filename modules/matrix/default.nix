@@ -69,14 +69,11 @@ in
         "chat.${cfg.elementBase}" = {
           enableACME = true;
           forceSSL = true;
-          #serverAliases = [
-          #  "chat.${config.networking.domain}"
-          #];
           root = pkgs.element-web.override {
             conf = {
               default_server_config."m.homeserver" = {
                 "base_url" = "https://${fqdn}";
-                "server_name" = "${cfg.elementBase}";
+                "server_name" = "${config.networking.domain}";
               };
             };
           };
@@ -111,15 +108,14 @@ in
           smtp_host: $(cat /run/secrets/synapse_mail_host)
           smtp_port: $(cat /run/secrets/synapse_mail_port)
           smtp_user: $(cat /run/secrets/synapse_mail_user)
-          smtp_pass: $(cat /run/secrets/synapse_mail_pass)
-        registration_shared_secret: $(cat /run/secrets/registration_key)" > /var/lib/extra_synapse_configs/mail.yaml
-
+          smtp_pass: $(cat /run/secrets/synapse_mail_pass)" > /var/lib/extra_synapse_configs/mail.yaml
+        echo "registration_shared_secret: $(cat /run/secrets/registration_key)" > /var/lib/extra_synapse_configs/auth.yaml
       '';
     };
     services.matrix-synapse = {
       enable = true;
-      server_name = cfg.elementBase;
-      extraConfigFiles = [ "/var/lib/extra_synapse_configs/mail.yaml" ];
+      server_name = config.networking.domain;
+      extraConfigFiles = [ "/var/lib/extra_synapse_configs/mail.yaml" "/var/lib/extra_synapse_configs/auth.yaml" ];
       listeners = [
         {
           port = 8008;
