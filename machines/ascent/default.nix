@@ -36,8 +36,14 @@
 
   sops.defaultSopsFile = ./secrets.yaml;
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-  sops.secrets.ts_key = {
-    owner = config.users.users.worker.name;
+  sops.secrets = {
+    ts_key = {
+      owner = config.users.users.worker.name;
+    };
+    synapse_mail_host.owner = config.users.users.matrix-synapse.name;
+    synapse_mail_port.owner = config.users.users.matrix-synapse.name;
+    synapse_mail_user.owner = config.users.users.matrix-synapse.name;
+    synapse_mail_pass.owner = config.users.users.matrix-synapse.name;
   };
 
   dov.tailscale = {
