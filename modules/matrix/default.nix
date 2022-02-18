@@ -63,7 +63,21 @@ in
               return 200 '${builtins.toJSON client}';
             '';
         };
-
+        "chat.${fqdn}" = {
+          enableACME = true;
+          forceSSL = true;
+          serverAliases = [
+            "chat.${config.networking.domain}"
+          ];
+          root = pkgs.element-web.override {
+            conf = {
+              default_server_config."m.homeserver" = {
+                "base_url" = "https://${fqdn}";
+                "server_name" = "${fqdn}";
+              };
+            };
+          };
+        };
         # Reverse proxy for Matrix client-server and server-server communication
         ${fqdn} = {
           enableACME = true;
@@ -101,7 +115,7 @@ in
     services.matrix-synapse = {
       enable = true;
       server_name = config.networking.domain;
-      extraConfigFiles = [ /var/lib/extra_synapse_configs/mail.yaml ];
+      extraConfigFiles = [ "/var/lib/extra_synapse_configs/mail.yaml" ];
       listeners = [
         {
           port = 8008;
