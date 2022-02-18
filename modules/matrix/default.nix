@@ -101,6 +101,7 @@ in
     services.matrix-synapse = {
       enable = true;
       server_name = config.networking.domain;
+      extraConfigFiles = [ /var/lib/extra_synapse_configs/mail.yaml ];
       listeners = [
         {
           port = 8008;
