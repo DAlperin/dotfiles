@@ -10,7 +10,7 @@ in
 {
   options.dov.matrix.enable = lib.mkEnableOption "matrix home-server";
   options.dov.matrix.elementBase = lib.mkOption {
-    default = "${fqdn}";
+    default = "${config.networking.domain}";
   };
   config = lib.mkIf cfg.enable {
     security.acme = {
@@ -42,11 +42,22 @@ in
           enableACME = true;
           forceSSL = true;
 
+          # Or do a redirect instead of the 404, or whatever is appropriate for you.
+          # But do not put a Matrix Web client here! See the Element web section below.
+          locations."/".extraConfig = ''
+            return 404;
+          '';
+
+          # forward all Matrix API calls to the synapse Matrix homeserver
+          locations."/_matrix" = {
+            proxyPass = "http://[::1]:8008"; # without a trailing /
+          };
+
           locations."= /.well-known/matrix/server".extraConfig =
             let
               # use 443 instead of the default 8448 port to unite
               # the client-server and server-server port for simplicity
-              server = { "m.server" = "${fqdn}:443"; };
+              server = { "m.server" = "${config.networking.domain}:443"; };
             in
             ''
               add_header Content-Type application/json;
@@ -55,7 +66,7 @@ in
           locations."= /.well-known/matrix/client".extraConfig =
             let
               client = {
-                "m.homeserver" = { "base_url" = "https://${fqdn}"; };
+                "m.homeserver" = { "base_url" = "https://${config.networking.domain}"; };
                 "m.identity_server" = { "base_url" = "https://vector.im"; };
               };
               # ACAO required to allow element-web on any URL to request this json file
@@ -75,28 +86,28 @@ in
           root = pkgs.element-web.override {
             conf = {
               default_server_config."m.homeserver" = {
-                "base_url" = "https://${fqdn}";
-                "server_name" = "${fqdn}";
+                "base_url" = "https://${config.networking.domain}";
+                "server_name" = "${config.networking.domain}";
               };
             };
           };
         };
         # Reverse proxy for Matrix client-server and server-server communication
-        ${fqdn} = {
-          enableACME = true;
-          forceSSL = true;
+        #${fqdn} = {
+        #  enableACME = true;
+        #  forceSSL = true;
 
-          # Or do a redirect instead of the 404, or whatever is appropriate for you.
-          # But do not put a Matrix Web client here! See the Element web section below.
-          locations."/".extraConfig = ''
-            return 404;
-          '';
+        #  # Or do a redirect instead of the 404, or whatever is appropriate for you.
+        #  # But do not put a Matrix Web client here! See the Element web section below.
+        #  locations."/".extraConfig = ''
+        #    return 404;
+        #  '';
 
-          # forward all Matrix API calls to the synapse Matrix homeserver
-          locations."/_matrix" = {
-            proxyPass = "http://[::1]:8008"; # without a trailing /
-          };
-        };
+        #  # forward all Matrix API calls to the synapse Matrix homeserver
+        #  locations."/_matrix" = {
+        #    proxyPass = "http://[::1]:8008"; # without a trailing /
+        #  };
+        #};
       };
     };
     systemd.services.synapse-secrets = {
