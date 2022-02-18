@@ -52,6 +52,7 @@
   };
 
   dov.matrix.enable = true;
+  dov.matrix.elementBase = "dov.dev";
 
   networking = {
     hostName = "ascent";

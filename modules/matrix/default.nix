@@ -9,6 +9,9 @@ let
 in
 {
   options.dov.matrix.enable = lib.mkEnableOption "matrix home-server";
+  options.dov.matrix.elementBase = lib.mkOption {
+    default = "${fqdn}";
+  };
   config = lib.mkIf cfg.enable {
     security.acme = {
       email = "git@dov.dev";
@@ -63,7 +66,7 @@ in
               return 200 '${builtins.toJSON client}';
             '';
         };
-        "chat.${config.networking.domain}" = {
+        "chat.${cfg.elementBase}" = {
           enableACME = true;
           forceSSL = true;
           #serverAliases = [
