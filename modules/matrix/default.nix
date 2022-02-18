@@ -63,12 +63,12 @@ in
               return 200 '${builtins.toJSON client}';
             '';
         };
-        "chat.${fqdn}" = {
+        "chat.${config.networking.domain}" = {
           enableACME = true;
           forceSSL = true;
-          serverAliases = [
-            "chat.${config.networking.domain}"
-          ];
+          #serverAliases = [
+          #  "chat.${config.networking.domain}"
+          #];
           root = pkgs.element-web.override {
             conf = {
               default_server_config."m.homeserver" = {
