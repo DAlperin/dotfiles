@@ -44,6 +44,7 @@
     synapse_mail_port.owner = config.users.users.matrix-synapse.name;
     synapse_mail_user.owner = config.users.users.matrix-synapse.name;
     synapse_mail_pass.owner = config.users.users.matrix-synapse.name;
+    registration_key.owner = config.users.users.matrix-synapse.name;
   };
 
   dov.tailscale = {

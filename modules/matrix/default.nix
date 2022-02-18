@@ -123,7 +123,9 @@ in
           smtp_host: $(cat /run/secrets/synapse_mail_host)
           smtp_port: $(cat /run/secrets/synapse_mail_port)
           smtp_user: $(cat /run/secrets/synapse_mail_user)
-          smtp_pass: $(cat /run/secrets/synapse_mail_pass)" > /var/lib/extra_synapse_configs/mail.yaml
+          smtp_pass: $(cat /run/secrets/synapse_mail_pass)
+        registration_shared_secret: $(cat /run/secrets/registration_key)" > /var/lib/extra_synapse_configs/mail.yaml
+
       '';
     };
     services.matrix-synapse = {
