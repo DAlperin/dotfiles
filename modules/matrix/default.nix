@@ -83,9 +83,9 @@ in
       };
     };
     systemd.services.synapse-secrets = {
-      User = [ "matrix-synapse" ];
-      StateDirectory = "extra_synapse_configs";
-      StateDirectoryMode = "0750";
+      serviceConfig.User = [ "matrix-synapse" ];
+      serviceConfig.StateDirectory = "extra_synapse_configs";
+      serviceConfig.StateDirectoryMode = "0750";
       after = [ "network.target" "postgresql.service" ];
       before = [ "matrix-synapse.service" ];
       wantedBy = [ "multi-user.target" ];
