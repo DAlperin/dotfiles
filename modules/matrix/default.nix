@@ -116,6 +116,23 @@ in
       enable = true;
       server_name = config.networking.domain;
       extraConfigFiles = [ "/var/lib/extra_synapse_configs/mail.yaml" "/var/lib/extra_synapse_configs/auth.yaml" ];
+      logConfig = ''version: 1
+formatters:
+    journal_fmt:
+        format: '%(name)s: [%(request)s] %(message)s'
+filters:
+    context:
+        (): synapse.util.logcontext.LoggingContextFilter
+        request: \"\"
+handlers:
+    journal:
+        class: systemd.journal.JournalHandler
+        formatter: journal_fmt
+        filters: [context]
+root:
+    level: INFO
+    handlers: [journal]
+disable_existing_loggers: False'';
       listeners = [
         {
           port = 8008;
