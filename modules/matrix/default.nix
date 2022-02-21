@@ -177,8 +177,10 @@ worker_log_config: /var/lib/synapse_workers/worker1log.yaml" > /var/lib/synapse_
     type: http
     resources:
      - names: [replication]
+worker_app: synapse.app.homeserver
 redis:
     enabled: true'';
+
       listeners = [
         {
           port = 8008;
