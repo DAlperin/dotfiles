@@ -171,14 +171,14 @@ worker_log_config: /var/lib/synapse_workers/worker1log.yaml" > /var/lib/synapse_
         "/var/lib/extra_synapse_configs/auth.yaml"
       ];
       logConfig = cfg.logConfig;
-      extraConfig = ''listeners:
-  - port: 9093
-    bind_address: '127.0.0.1'
-    type: http
-    resources:
-     - names: [replication]
-redis:
-    enabled: true'';
+#      extraConfig = ''listeners:
+#  - port: 9093
+#    bind_address: '127.0.0.1'
+#    type: http
+#    resources:
+#     - names: [replication]
+#redis:
+#    enabled: true'';
 
       listeners = [
         {
