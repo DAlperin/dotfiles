@@ -6,13 +6,39 @@ let
       join = hostName: domain: hostName + lib.optionalString (domain != null) ".${domain}";
     in
     join config.networking.hostName config.networking.domain;
+  logConfigFile = pkgs.writeText "log_config.yaml" cfg.logConfig;
 in
 {
   options.dov.matrix.enable = lib.mkEnableOption "matrix home-server";
   options.dov.matrix.elementBase = lib.mkOption {
     default = "${config.networking.domain}";
   };
+  options.dov.matrix.logConfig = lib.mkOption {
+    type = lib.types.lines;
+    default = ''version: 1
+formatters:
+    journal_fmt:
+        format: '%(name)s: [%(request)s] %(message)s'
+filters:
+    context:
+        (): synapse.util.logcontext.LoggingContextFilter
+        request: \"\"
+handlers:
+    journal:
+        class: systemd.journal.JournalHandler
+        formatter: journal_fmt
+        filters: [context]
+root:
+    level: INFO
+    handlers: [journal]
+disable_existing_loggers: False'';
+  };
+  options.dov.matrix.dataDir = lib.mkOption {
+    type = lib.types.str;
+    default = "/var/lib/matrix-synapse";
+  };
   config = lib.mkIf cfg.enable {
+    services.redis.enable = true;
     security.acme = {
       email = "git@dov.dev";
       acceptTerms = true;
@@ -112,27 +138,47 @@ in
         echo "registration_shared_secret: $(cat /run/secrets/registration_key)" > /var/lib/extra_synapse_configs/auth.yaml
       '';
     };
+    systemd.services.synapse-workers= {
+      serviceConfig.User = [ "matrix-synapse" ];
+      serviceConfig.StateDirectory = "synapse_workers";
+      serviceConfig.StateDirectoryMode = "0750";
+      after = [ "network.target" "postgresql.service" "matrix-synapse.service" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig.Type = "oneshot";
+      script = ''
+        echo "worker_app: synapse.app.generic_worker
+worker_name: worker1
+
+# The replication listener on the main synapse process.
+worker_replication_host: 127.0.0.1
+worker_replication_http_port: 9093
+
+worker_listeners:
+ - type: http
+   port: 8083
+   resources:
+     - names:
+       - client
+       - federation
+worker_log_config: /var/lib/synapse_workers/worker1log.yaml" > /var/lib/synapse_workers/worker1.yaml
+      '';
+    };
     services.matrix-synapse = {
       enable = true;
       server_name = config.networking.domain;
-      extraConfigFiles = [ "/var/lib/extra_synapse_configs/mail.yaml" "/var/lib/extra_synapse_configs/auth.yaml" ];
-      logConfig = ''version: 1
-formatters:
-    journal_fmt:
-        format: '%(name)s: [%(request)s] %(message)s'
-filters:
-    context:
-        (): synapse.util.logcontext.LoggingContextFilter
-        request: \"\"
-handlers:
-    journal:
-        class: systemd.journal.JournalHandler
-        formatter: journal_fmt
-        filters: [context]
-root:
-    level: INFO
-    handlers: [journal]
-disable_existing_loggers: False'';
+      extraConfigFiles = [
+        "/var/lib/extra_synapse_configs/mail.yaml"
+        "/var/lib/extra_synapse_configs/auth.yaml"
+      ];
+      logConfig = cfg.logConfig;
+      extraConfig = ''listeners:
+  - port: 9093
+    bind_address: '127.0.0.1'
+    type: http
+    resources:
+     - names: [replication]
+redis:
+    enabled: true'';
       listeners = [
         {
           port = 8008;
