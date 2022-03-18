@@ -4,7 +4,7 @@
 
   users.users.dovalperin = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "libvirtd" ];
+    extraGroups = [ "wheel" "docker" "libvirtd" "plugdev" "dialout" ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = config.dov.ssh.authorizedKeys;
     passwordFile = config.sops.secrets.dovalperin_pass.path;
@@ -23,8 +23,12 @@
     #this is broken do not use for now
     #    tailscale.useExit = "true";
   };
+  programs.steam.enable = true;
 
   virtualisation.docker.enable = true;
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="5740", MODE="0664", GROUP="plugdev"
+  '';
 
   programs.zsh.enable = true;
 

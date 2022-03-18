@@ -88,6 +88,9 @@ in
           PATH=/home/dovalperin/.cargo/bin:$PATH
           PATH=/home/dovalperin/.local/bin:$PATH
           PATH="/home/dovalperin/.krew/bin:$PATH"
+          PATH="$HOME/.pyenv/bin:$PATH"
+          eval "$(pyenv init --path)"
+          eval "$(pyenv virtualenv-init -)"
         '';
         plugins = [
           {

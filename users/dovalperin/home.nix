@@ -5,9 +5,13 @@
   imports = [ ./../../home ./../../home/nixos ];
 
   home.packages = with pkgs; [
-    #pinentry
+    gitoxide
+    loc
+    appimage-run
+    mcrcon
+    betaflight-configurator
     element-desktop
-    discord
+    unstable.discord
     yarn
     bat
     exa
@@ -25,26 +29,20 @@
     xclip
     tree-sitter
     exercism
-    direnv
     matlab
     matlab-shell
     matlab-mlint
     matlab-mex
     git-privacy
-    lens
-    minikube
     kubectl
     unstable.fluxcd
     kubeseal
-    linode-cli
-    telnet
     mercurial
-    krew
     wireshark
-    #gnupg
     age
     sops
     minecraft
+    steam-run
   ];
 
   dov = {
@@ -53,9 +51,16 @@
     #    "1password".enable = true;
   };
 
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
+  programs.direnv.nix-direnv.enableFlakes = true;
+
   programs.home-manager.enable = true;
 
-  programs.vscode.enable = true;
+  programs.vscode = {
+    enable = true;
+    package = pkgs.unstable.vscode;
+  };
 
   programs.fzf = {
     enable = true;

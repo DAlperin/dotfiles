@@ -138,7 +138,7 @@ disable_existing_loggers: False'';
         echo "registration_shared_secret: $(cat /run/secrets/registration_key)" > /var/lib/extra_synapse_configs/auth.yaml
       '';
     };
-    systemd.services.synapse-workers= {
+    systemd.services.synapse-workers = {
       serviceConfig.User = [ "matrix-synapse" ];
       serviceConfig.StateDirectory = "synapse_workers";
       serviceConfig.StateDirectoryMode = "0750";
@@ -146,21 +146,21 @@ disable_existing_loggers: False'';
       wantedBy = [ "multi-user.target" ];
       serviceConfig.Type = "oneshot";
       script = ''
-        echo "worker_app: synapse.app.generic_worker
-worker_name: worker1
+                echo "worker_app: synapse.app.generic_worker
+        worker_name: worker1
 
-# The replication listener on the main synapse process.
-worker_replication_host: 127.0.0.1
-worker_replication_http_port: 9093
+        # The replication listener on the main synapse process.
+        worker_replication_host: 127.0.0.1
+        worker_replication_http_port: 9093
 
-worker_listeners:
- - type: http
-   port: 8083
-   resources:
-     - names:
-       - client
-       - federation
-worker_log_config: /var/lib/synapse_workers/worker1log.yaml" > /var/lib/synapse_workers/worker1.yaml
+        worker_listeners:
+         - type: http
+           port: 8083
+           resources:
+             - names:
+               - client
+               - federation
+        worker_log_config: /var/lib/synapse_workers/worker1log.yaml" > /var/lib/synapse_workers/worker1.yaml
       '';
     };
     services.matrix-synapse = {
@@ -171,14 +171,14 @@ worker_log_config: /var/lib/synapse_workers/worker1log.yaml" > /var/lib/synapse_
         "/var/lib/extra_synapse_configs/auth.yaml"
       ];
       logConfig = cfg.logConfig;
-#      extraConfig = ''listeners:
-#  - port: 9093
-#    bind_address: '127.0.0.1'
-#    type: http
-#    resources:
-#     - names: [replication]
-#redis:
-#    enabled: true'';
+      #      extraConfig = ''listeners:
+      #  - port: 9093
+      #    bind_address: '127.0.0.1'
+      #    type: http
+      #    resources:
+      #     - names: [replication]
+      #redis:
+      #    enabled: true'';
 
       listeners = [
         {
