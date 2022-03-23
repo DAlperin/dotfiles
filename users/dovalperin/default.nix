@@ -18,12 +18,14 @@
     #Stuff that needs system level access in some way
     browsers.brave.enable = true;
     zoom.enable = true;
-    "1password".enable = true;
+    #"1password".enable = true;
     tailscale.enable = true;
     #this is broken do not use for now
     #    tailscale.useExit = "true";
   };
   programs.steam.enable = true;
+  programs._1password-gui.enable = true;
+  programs._1password-gui.groupId = 5000;
 
   virtualisation.docker.enable = true;
   services.udev.extraRules = ''
