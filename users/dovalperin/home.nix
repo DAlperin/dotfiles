@@ -5,7 +5,6 @@
   imports = [ ./../../home ./../../home/nixos ];
 
   home.packages = with pkgs; [
-    gitoxide
     loc
     appimage-run
     mcrcon
@@ -27,28 +26,28 @@
     nerdfonts
     (hiPrio bintools)
     xclip
-    tree-sitter
+    unstable.tree-sitter
     exercism
     matlab
     matlab-shell
     matlab-mlint
     matlab-mex
-    git-privacy
-    kubectl
-    unstable.fluxcd
-    kubeseal
     mercurial
     wireshark
     age
     sops
     minecraft
     steam-run
+    unstable.pscale
+    mysql80
+    unstable.gitkraken
+    zig #used as a general purpose c compiler
+    sumneko-lua-language-server
   ];
 
   dov = {
     zsh.enable = true;
     emacs.enable = true;
-    #    "1password".enable = true;
   };
 
   programs.direnv.enable = true;

@@ -5,6 +5,7 @@ self: super: {
     advanced-alttab-window-switcher = super.callPackage ../pkgs/advanced-alt-tab.nix { };
   };
   _1password-gui = super.callPackage ../pkgs/1password-gui.nix {  };
+  _1password = super.callPackage ../pkgs/1password.nix {  };
   kubeseal = super.callPackage ../pkgs/kubeseal.nix { };
   unstable = import unstable {
     system = "${super.system}";

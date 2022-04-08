@@ -18,6 +18,16 @@ in {
           '';
       };
 
+      opPackage = mkOption {
+        type = types.package;
+        default = pkgs._1password;
+        defaultText = literalExpression "pkgs._1password";
+        example = literalExpression "pkgs._1password";
+        description = ''
+          The 1Password cli derivation to use. This can be used to upgrade from the stable release that we keep in nixpkgs to the betas.
+          '';
+      };
+
       package = mkOption {
         type = types.package;
         default = (pkgs._1password-gui.override ({ polkitPolicyOwners = ["dovalperin"]; }));

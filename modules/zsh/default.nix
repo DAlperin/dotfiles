@@ -42,6 +42,7 @@ in
           SPACESHIP_NIXSHELL_SYMBOL = "\${SPACESHIP_NIXSHELL_SYMBOL=\"❄️\"}";
           KUBECONFIG = "$HOME/.kube/config:$HOME/.kube/test-cluster-kubeconfig.yaml";
           GHPACKAGESTOKEN = "$(cat /run/secrets/gh_packages_key)";
+          PSCALE_DISABLE_DEV_WARNING = "true";
         };
         initExtra = ''
           bindkey '^ ' autosuggest-accept
@@ -53,7 +54,7 @@ in
               "yellow" \
               "$SPACESHIP_NIXSHELL_PREFIX" \
               "$SPACESHIP_NIXSHELL_SYMBOL $IN_NIX_SHELL" \
-              "$SPACESHIP_NIXSHELL_SUFFIX"
+              "$SPACESHIP_NIXSHELL_SUFFIX "
           }
 
           # This is a hack and assumes that nixshell will always be first if it is present at all
@@ -77,6 +78,7 @@ in
             fc -R ~/.zsh_history
             rm ~/.zsh_history_bad
           }
+
           function copy {
             if [ ! -n "$1" ]; then
               echo "Enter a filename"
@@ -84,13 +86,10 @@ in
               xclip $1 -selection clipboard
             fi
           }
+
           PATH=/home/dovalperin/.yarn/bin:$PATH
           PATH=/home/dovalperin/.cargo/bin:$PATH
           PATH=/home/dovalperin/.local/bin:$PATH
-          PATH="/home/dovalperin/.krew/bin:$PATH"
-          PATH="$HOME/.pyenv/bin:$PATH"
-          eval "$(pyenv init --path)"
-          eval "$(pyenv virtualenv-init -)"
         '';
         plugins = [
           {

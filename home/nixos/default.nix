@@ -2,6 +2,6 @@
 { config, pkgs, ... }: {
   #EVERYONE gets neovim. Just in case ;)
   home.packages = with pkgs; [
-    neovim
+    unstable.neovim
   ];
 }
