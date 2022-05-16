@@ -11,7 +11,7 @@ in
   config = mkIf cfg.enable
     {
       home.packages = [
-        ((pkgs.emacsPackagesNgGen pkgs.emacsGcc).emacsWithPackages (epkgs: [
+        ((pkgs.emacsPackagesNgGen pkgs.emacsNativeComp).emacsWithPackages (epkgs: [
           epkgs.vterm
         ]))
         pkgs.coreutils
