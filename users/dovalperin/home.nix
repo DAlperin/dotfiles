@@ -6,32 +6,27 @@
 
   home.packages = with pkgs; [
     loc
-    appimage-run
-    mcrcon
     betaflight-configurator
     element-desktop
-    unstable.discord
+    discord
     yarn
     bat
     exa
-    rustup
-    nodejs-16_x
+    unstable.nodejs-16_x
     lsof
     spotify
     thunderbird
     signal-desktop
-    unstable.jetbrains.idea-ultimate
-    unstable.jetbrains.clion
     dig
     nerdfonts
     (hiPrio bintools)
     xclip
     unstable.tree-sitter
     exercism
-    matlab
-    matlab-shell
-    matlab-mlint
-    matlab-mex
+    #matlab
+    #matlab-shell
+    #matlab-mlint
+    #matlab-mex
     mercurial
     wireshark
     age
@@ -41,8 +36,20 @@
     unstable.pscale
     mysql80
     unstable.gitkraken
-    zig #used as a general purpose c compiler
-    sumneko-lua-language-server
+    #zig #used as a general purpose c compiler
+    gcc
+    unstable.flyctl
+    fira-code
+    libreoffice
+    rustup
+    asciinema
+    unstable.jetbrains.idea-ultimate
+    unstable.postman
+    unstable.insomnia
+    docker-compose
+    terraform
+    bun
+    glib
   ];
 
   dov = {
@@ -93,6 +100,7 @@
 
   programs.go = {
     enable = true;
+    package = pkgs.go_1_17;
   };
 
   programs.jq = {
