@@ -72,6 +72,7 @@ in
             fi
           }
 
+          # This is not really used anymore and is from when Ubuntu used to randomly corrupt my zsh history
           function zsh_history_fix {
             mv ~/.zsh_history ~/.zsh_history_bad
             strings ~/.zsh_history_bad > ~/.zsh_history
@@ -90,6 +91,7 @@ in
           PATH=/home/dovalperin/.yarn/bin:$PATH
           PATH=/home/dovalperin/.cargo/bin:$PATH
           PATH=/home/dovalperin/.local/bin:$PATH
+          PATH=/home/dovalperin/go/bin/:$PATH
         '';
         plugins = [
           {
