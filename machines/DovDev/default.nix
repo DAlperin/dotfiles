@@ -1,11 +1,11 @@
 { config, lib, pkgs, modulesPath, nixos-hardware, ... }:
 
 {
- # disabledModules = ["security/pam.nix"];
+  # disabledModules = ["security/pam.nix"];
   imports =
     [
       (modulesPath + "/installer/scan/not-detected.nix")
- #     ./../../modules/pam
+      #     ./../../modules/pam
     ];
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
@@ -82,11 +82,18 @@
     pkgs.hplip
   ];
 
- # services.fprintd.enable = true;
- # services.fprintd.tod = {
- #   enable = true;
- #   driver = pkgs.libfprint-2-tod1-goodix;
- # };
+  hardware.opengl.extraPackages = [
+    pkgs.intel-compute-runtime
+  ];
+
+  #environment.systemPackages = with pkgs; [
+  #  unstable.zlib
+  #];
+  # services.fprintd.enable = true;
+  # services.fprintd.tod = {
+  #   enable = true;
+  #   driver = pkgs.libfprint-2-tod1-goodix;
+  # };
 
   sops.defaultSopsFile = ./secrets.yaml;
 }
