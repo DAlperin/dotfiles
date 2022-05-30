@@ -22,7 +22,7 @@
   };
   programs.steam.enable = true;
   programs._1password-gui.enable = true;
-  programs._1password-gui.groupId = 5000;
+  programs._1password-gui.gid= 5000;
 
   virtualisation.docker.enable = true;
   services.udev.extraRules = ''

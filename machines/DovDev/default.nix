@@ -13,7 +13,7 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.kernelParams = [ "acpi_osi=linux" ];
 
-  boot.loader.systemd-boot.enable = true;
+  #boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.loader.grub = {
@@ -66,6 +66,7 @@
       trustedInterfaces = [ "tailscale0" ];
       allowedUDPPorts = [ config.services.tailscale.port ];
       allowedTCPPorts = [ 22 ];
+      checkReversePath = "loose";
     };
   };
 

@@ -4,7 +4,7 @@ let
 in
 {
 
-  options.dov.tailscale.enable = lib.mkEnableOption "emacs config";
+  options.dov.tailscale.enable = lib.mkEnableOption "tailscale config";
   options.dov.tailscale.exit = lib.mkOption {
     type = with lib.types; uniq string;
     default = "false";

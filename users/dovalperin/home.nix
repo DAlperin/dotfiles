@@ -12,7 +12,7 @@
     yarn
     bat
     exa
-    unstable.nodejs-16_x
+    nodejs-16_x
     lsof
     spotify
     thunderbird
@@ -21,35 +21,35 @@
     nerdfonts
     (hiPrio bintools)
     xclip
-    unstable.tree-sitter
+    tree-sitter
     exercism
-    #matlab
-    #matlab-shell
-    #matlab-mlint
-    #matlab-mex
     mercurial
     wireshark
     age
     sops
     minecraft
     steam-run
-    unstable.pscale
+    pscale
     mysql80
-    unstable.gitkraken
-    #zig #used as a general purpose c compiler
+    gitkraken
     gcc
-    unstable.flyctl
+    flyctl
     fira-code
     libreoffice
-    rustup
     asciinema
-    unstable.jetbrains.idea-ultimate
-    unstable.postman
-    unstable.insomnia
+    jetbrains.idea-ultimate
+    postman
+    insomnia
     docker-compose
     terraform
     bun
     glib
+    slack
+    gimp
+    ghidra
+    pandoc
+    peek
+    rustup
   ];
 
   dov = {
@@ -59,13 +59,13 @@
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
-  programs.direnv.nix-direnv.enableFlakes = true;
+#  programs.direnv.nix-direnv.enableFlakes = true;
 
   programs.home-manager.enable = true;
 
   programs.vscode = {
     enable = true;
-    package = pkgs.unstable.vscode;
+    package = pkgs.vscode;
   };
 
   programs.fzf = {
@@ -100,7 +100,7 @@
 
   programs.go = {
     enable = true;
-    package = pkgs.go_1_17;
+    package = pkgs.go_1_18;
   };
 
   programs.jq = {

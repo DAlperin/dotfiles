@@ -11,7 +11,7 @@ in
   config = mkIf cfg.enable
     {
       home.packages = [
-        ((pkgs.emacsPackagesNgGen pkgs.emacsNativeComp).emacsWithPackages (epkgs: [
+        ((pkgs.emacsPackagesFor pkgs.emacs28NativeComp).emacsWithPackages (epkgs: [
           epkgs.vterm
         ]))
         pkgs.coreutils
@@ -24,6 +24,6 @@ in
       ];
 
       #For emacs daemon
-      services.emacs.enable = true;
+      #services.emacs.enable = true;
     };
 }
