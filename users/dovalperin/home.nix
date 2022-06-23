@@ -38,6 +38,7 @@
     libreoffice
     asciinema
     jetbrains.idea-ultimate
+    jetbrains.clion
     postman
     insomnia
     docker-compose
@@ -50,6 +51,12 @@
     pandoc
     peek
     rustup
+    vlang
+    delve
+    apostrophe
+    neofetch
+    mathematica
+    htop
   ];
 
   dov = {
@@ -59,7 +66,7 @@
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
-#  programs.direnv.nix-direnv.enableFlakes = true;
+  #  programs.direnv.nix-direnv.enableFlakes = true;
 
   programs.home-manager.enable = true;
 

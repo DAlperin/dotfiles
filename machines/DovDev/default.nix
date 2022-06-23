@@ -1,19 +1,19 @@
 { config, lib, pkgs, modulesPath, nixos-hardware, ... }:
 
 {
-  # disabledModules = ["security/pam.nix"];
   imports =
     [
       (modulesPath + "/installer/scan/not-detected.nix")
-      #     ./../../modules/pam
     ];
+
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
+
   boot.kernelPackages = pkgs.linuxPackages_5_15;
   boot.kernelModules = [ "kvm-intel" ];
+
   boot.kernelParams = [ "acpi_osi=linux" ];
 
-  #boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.loader.grub = {
@@ -56,27 +56,48 @@
       trustedUsers = [ "root" "dovalperin" ];
     };
 
+  sops.defaultSopsFile = ./secrets.yaml;
+
+  sops.secrets = {
+    flywgpriv = {
+      owner = config.users.users.dovalperin.name;
+    };
+  };
+
   networking = {
     networkmanager.enable = true;
-    #Let tailscale manager this
-    #networkmanager.insertNameservers = [ "1.1.1.1" "8.8.8.8" ];
     hostName = "DovDev";
     firewall = {
       enable = true;
       trustedInterfaces = [ "tailscale0" ];
-      allowedUDPPorts = [ config.services.tailscale.port ];
+      allowedUDPPorts = [ config.services.tailscale.port 51820 ];
       allowedTCPPorts = [ 22 ];
-      checkReversePath = "loose";
+    };
+    wg-quick.interfaces = {
+      wg0 = {
+        address = [ "fdaa:0:52b2:a7b:8cfe:0:a:1102/120" ];
+        dns = [ "fdaa:0:52b2::3" ];
+        privateKeyFile = config.sops.secrets.flywgpriv.path;
+
+        peers = [
+          {
+            publicKey = "q+cTUCrE9NekeuZEF/gCYxr2wNBjvYgGoqYwV1logEI=";
+            allowedIPs = [ "fdaa:0:52b2::/48" ];
+            endpoint = "iad2.gateway.6pn.dev:51820";
+            persistentKeepalive = 25;
+          }
+        ];
+      };
     };
   };
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+
   system.stateVersion = "21.11";
+
   services.teamviewer.enable = true;
   services.printing.enable = true;
   services.avahi.enable = true;
-  # Important to resolve .local domains of printers, otherwise you get an error
-  # like  "Impossible to connect to XXX.local: Name or service not known"
   services.avahi.nssmdns = true;
   services.printing.drivers = [
     pkgs.gutenprint
@@ -87,14 +108,4 @@
     pkgs.intel-compute-runtime
   ];
 
-  #environment.systemPackages = with pkgs; [
-  #  unstable.zlib
-  #];
-  # services.fprintd.enable = true;
-  # services.fprintd.tod = {
-  #   enable = true;
-  #   driver = pkgs.libfprint-2-tod1-goodix;
-  # };
-
-  sops.defaultSopsFile = ./secrets.yaml;
 }
