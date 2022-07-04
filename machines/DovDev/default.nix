@@ -71,7 +71,6 @@
       enable = true;
       trustedInterfaces = [ "tailscale0" ];
       allowedUDPPorts = [ config.services.tailscale.port 51820 ];
-      allowedTCPPorts = [ 22 ];
     };
     wg-quick.interfaces = {
       wg0 = {
