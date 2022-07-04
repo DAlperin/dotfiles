@@ -39,4 +39,5 @@ self: super: {
   });
   zig = super.callPackage ../pkgs/zig.nix { };
   bun = super.callPackage ../pkgs/bun.nix { };
+  jetbrains-gateway = super.callPackage ../pkgs/jetbrains-gateway.nix {  };
 }

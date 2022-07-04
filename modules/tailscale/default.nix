@@ -19,10 +19,11 @@ in
     {
 
       environment.systemPackages = with pkgs; [
-        tailscale
+        unstable.tailscale
       ];
 
       services.tailscale.enable = true;
+      services.tailscale.package = pkgs.unstable.tailscale;
 
       systemd.services.tailscale-autoconnect = {
         description = "Automatic connection to Tailscale";
@@ -44,7 +45,7 @@ in
           sleep 2
 
           # check if we are already authenticated to tailscale
-          status="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r .BackendState)"
+          status="$(${unstable.tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r .BackendState)"
           if [ $status = "Running" ]; then # if so, then do nothing
             exit 0
           fi
@@ -52,13 +53,13 @@ in
           # otherwise authenticate with tailscale
           if [ $exit = true ] ; then
             echo "exit = true"
-            ${tailscale}/bin/tailscale up -authkey $key --advertise-exit-node
+            ${unstable.tailscale}/bin/tailscale up -authkey $key --advertise-exit-node
           else
             echo "exit = false"
             if [ $useexit = true ] ; then
-              ${tailscale}/bin/tailscale up -authkey $key --exit-node=100.94.16.88
+              ${unstable.tailscale}/bin/tailscale up -authkey $key --exit-node=100.94.16.88
             else
-              ${tailscale}/bin/tailscale up -authkey $key --reset
+              ${unstable.tailscale}/bin/tailscale up -authkey $key --reset
             fi
           fi
         '';

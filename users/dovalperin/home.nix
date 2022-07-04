@@ -57,6 +57,11 @@
     neofetch
     mathematica
     htop
+    _1password
+    devdocs-desktop
+    wasabiwallet
+    jetbrains-gateway
+    zellij
   ];
 
   dov = {
