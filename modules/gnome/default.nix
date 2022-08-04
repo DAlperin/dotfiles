@@ -12,9 +12,16 @@
     gnomeExtensions.gtile
     gnome.gnome-tweaks
     wmctrl
-    guake
     gnvim
+    adwaita-qt
+    libsForQt5.qtstyleplugins
   ];
+
+  qt5 = {
+    enable = true;
+    platformTheme = "gnome";
+    style = "adwaita-dark";
+  };
 
   services.udev.packages = with pkgs; [ gnome3.gnome-settings-daemon ];
 }

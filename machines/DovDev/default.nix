@@ -99,12 +99,29 @@
   services.avahi.enable = true;
   services.avahi.nssmdns = true;
   services.printing.drivers = [
-    pkgs.gutenprint
-    pkgs.hplip
+    pkgs.hplipWithPlugin
   ];
 
   hardware.opengl.extraPackages = [
     pkgs.intel-compute-runtime
   ];
 
+  sops.age.keyFile = "/home/dovalperin/.config/sops/age/keys.txt";
+  sops.age.sshKeyPaths = [ ];
+  sops.secrets = {
+    ts_key = {
+      owner = config.users.users.dovalperin.name;
+    };
+    gh_packages_key = {
+      owner = config.users.users.dovalperin.name;
+    };
+    pia_auth = {
+      owner = config.users.users.dovalperin.name;
+    };
+  };
+
+  users.users.dovalperin = {
+    openssh.authorizedKeys.keys = config.dov.ssh.authorizedKeys;
+    passwordFile = config.sops.secrets.dovalperin_pass.path;
+  };
 }

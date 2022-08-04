@@ -7,11 +7,10 @@ let
 in
 {
   options.dov.browsers.brave.enable = mkEnableOption "brave";
+  options.dov.browsers.firefox.enable = mkEnableOption "firefox";
 
-  config = mkIf cfg.brave.enable
+  config =
     {
-      environment.systemPackages = with pkgs; [
-        brave
-      ];
+      environment.systemPackages = lib.optionals cfg.brave.enable [ pkgs.brave ] ++ lib.optionals cfg.firefox.enable [ pkgs.firefox ];
     };
 }

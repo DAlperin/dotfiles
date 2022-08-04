@@ -43,7 +43,6 @@
     insomnia
     docker-compose
     terraform
-    bun
     glib
     slack
     gimp
@@ -55,13 +54,11 @@
     delve
     apostrophe
     neofetch
-    mathematica
     htop
     _1password
-    devdocs-desktop
-    wasabiwallet
     jetbrains-gateway
-    zellij
+    gh
+    vlc
   ];
 
   dov = {
@@ -71,7 +68,6 @@
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
-  #  programs.direnv.nix-direnv.enableFlakes = true;
 
   programs.home-manager.enable = true;
 
@@ -84,6 +80,7 @@
     enable = true;
     enableZshIntegration = true;
   };
+
 
   services.gpg-agent.enable = true;
   programs.gpg.enable = true;
