@@ -115,4 +115,10 @@
   programs.jq = {
     enable = true;
   };
+
+  dconf.settings = {
+    "org/gnome/mutter" = {
+      experimental-features = [ "x11-randr-fractional-scaling" ];
+    };
+  };
 }

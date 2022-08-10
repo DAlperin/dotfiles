@@ -106,6 +106,21 @@
            ./modules/zsh
            ./modules/emacs
          ]; #modules to be loaded by home-manager
+        spaceship = mkComputer
+         ./machines/spaceship
+         "dovalperin"
+         [
+           ./modules/xserver
+           ./modules/gnome
+           ./modules/ssh
+           ./modules/browsers
+           ./modules/postgresql
+           ./modules/redis
+         ] #modules to load
+         [
+           ./modules/zsh
+           ./modules/emacs
+         ]; #modules to be loaded by home-manager
       };
     };
 }
