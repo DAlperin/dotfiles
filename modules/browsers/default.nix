@@ -11,6 +11,6 @@ in
 
   config =
     {
-      environment.systemPackages = lib.optionals cfg.brave.enable [ pkgs.brave ] ++ lib.optionals cfg.firefox.enable [ pkgs.firefox ];
+      environment.systemPackages = lib.optionals cfg.brave.enable [ pkgs.unstable.brave ] ++ lib.optionals cfg.firefox.enable [ pkgs.firefox ];
     };
 }

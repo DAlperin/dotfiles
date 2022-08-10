@@ -91,6 +91,21 @@
             ./modules/matrix
           ]
           [ ];
+        humblegeoffrey = mkComputer
+         ./machines/humblegeoffrey
+         "dovalperin"
+         [
+           ./modules/xserver
+           ./modules/gnome
+           ./modules/ssh
+           ./modules/browsers
+           ./modules/postgresql
+           ./modules/redis
+         ] #modules to load
+         [
+           ./modules/zsh
+           ./modules/emacs
+         ]; #modules to be loaded by home-manager
       };
     };
 }

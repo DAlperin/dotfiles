@@ -16,6 +16,13 @@
 
   boot.loader.efi.canTouchEfiVariables = true;
 
+  sops.secrets.dovalperin_pass.neededForUsers = true;
+
+  dov = {
+    zoom.enable = true;
+    tailscale.enable = true;
+  };
+
   boot.loader.grub = {
     enable = true;
     version = 2;

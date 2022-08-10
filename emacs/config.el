@@ -78,7 +78,7 @@
   (define-key evil-visual-state-map (kbd "M-k") 'drag-stuff-up)
   (define-key evil-visual-state-map (kbd "M-j") 'drag-stuff-down))
 
-(setq doom-font (font-spec :family "Fira Code" :size 15))
+;;(setq doom-font (font-spec :family "Fira Code" :size 15))
 
 (add-to-list '+emacs-lisp-disable-flycheck-in-dirs "/etc/nixos/emacs")
 

@@ -25,6 +25,7 @@ in
           reload = "source ~/.zshrc";
           open-profile = "nvim ~/.zshrc";
           nd = "nix develop --command zsh";
+          "," = "nix-shell -p";
         };
         sessionVariables = {
           SPACESHIP_PROMPT_ADD_NEWLINE = "false";
@@ -41,10 +42,13 @@ in
           SPACESHIP_NIXSHELL_SUFFIX = "\${SPACESHIP_NIXSHELL_SUFFIX=\"$SPACESHIP_PROMPT_DEFAULT_SUFFIX\"}";
           SPACESHIP_NIXSHELL_SYMBOL = "\${SPACESHIP_NIXSHELL_SYMBOL=\"❄️\"}";
           KUBECONFIG = "$HOME/.kube/config:$HOME/.kube/test-cluster-kubeconfig.yaml";
-          GHPACKAGESTOKEN = "$(cat /run/secrets/gh_packages_key)";
           PSCALE_DISABLE_DEV_WARNING = "true";
         };
         initExtra = ''
+          if test -f "/run/secrets/gh_packages_key"; then
+            GHPACKAGESTOKEN = $(cat /run/secrets/gh_packages_key)
+          fi
+
           bindkey '^ ' autosuggest-accept
 
           spaceship_nixshell() {

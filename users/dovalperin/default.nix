@@ -1,7 +1,5 @@
 { pkgs, config, ... }:
 {
-  sops.secrets.dovalperin_pass.neededForUsers = true;
-
   users.users.dovalperin = {
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" "libvirtd" "plugdev" "dialout" ];
@@ -18,8 +16,6 @@
       brave.enable = true;
       firefox.enable = true;
     };
-    zoom.enable = true;
-    tailscale.enable = true;
   };
 
   programs.steam.enable = true;
