@@ -53,13 +53,13 @@ in
           # otherwise authenticate with tailscale
           if [ $exit = true ] ; then
             echo "exit = true"
-            ${unstable.tailscale}/bin/tailscale up -authkey $key --advertise-exit-node
+            ${unstable.tailscale}/bin/tailscale up -authkey $key --advertise-exit-node --ssh
           else
             echo "exit = false"
             if [ $useexit = true ] ; then
-              ${unstable.tailscale}/bin/tailscale up -authkey $key --exit-node=100.94.16.88
+              ${unstable.tailscale}/bin/tailscale up -authkey $key --exit-node=100.94.16.88 --ssh
             else
-              ${unstable.tailscale}/bin/tailscale up -authkey $key --reset
+              ${unstable.tailscale}/bin/tailscale up -authkey $key --reset --ssh
             fi
           fi
         '';

@@ -11,9 +11,11 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.kernelModules = [ "kvm-intel" ];
-  boot.kernelParams = [ "acpi_osi=linux" ];
+  boot.kernelParams = [ "acpi_osi=linux" "module_blacklist=hid_sensor_hub" ];
   boot.extraModulePackages = [ ];
   boot.kernelPackages = pkgs.linuxPackages_5_18;
+
+  sops.defaultSopsFile = ./secrets.yaml;
 
   nix =
     {
@@ -55,6 +57,10 @@
     [ { device = "/dev/disk/by-uuid/4ca26fd7-e615-4b54-a75d-5615e51246a9"; }
     ];
 
+  dov = {
+   tailscale.enable = true;
+  };
+
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
@@ -62,8 +68,32 @@
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp0s13f0u3u2.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp166s0.useDHCP = lib.mkDefault true;
-  networking.hostName = "spaceship";
+  networking = {
+    hostName = "spaceship";
+    firewall = {
+      enable = true;
+      checkReversePath = "loose";
+      trustedInterfaces = [ "tailscale0" ];
+      allowedUDPPorts = [ config.services.tailscale.port 51820 ];
+    };
+  };
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  sops.age.keyFile = "/home/dovalperin/.config/sops/age/keys.txt";
+  sops.age.sshKeyPaths = [ ];
+
+  sops.secrets = {
+    ts_key = {
+      owner = config.users.users.dovalperin.name;
+    };
+  };
+
+  services.printing.enable = true;
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
+  services.printing.drivers = [
+    pkgs.hplipWithPlugin
+  ];
 }

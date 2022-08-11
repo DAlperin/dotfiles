@@ -59,6 +59,8 @@
     jetbrains-gateway
     gh
     vlc
+    solaar
+    piper
   ];
 
   dov = {

@@ -116,6 +116,7 @@
            ./modules/browsers
            ./modules/postgresql
            ./modules/redis
+            ./modules/tailscale
          ] #modules to load
          [
            ./modules/zsh
