@@ -6,7 +6,6 @@
 
   home.packages = with pkgs; [
     loc
-    betaflight-configurator
     element-desktop
     discord
     yarn
@@ -16,7 +15,6 @@
     lsof
     spotify
     thunderbird
-    signal-desktop
     dig
     nerdfonts
     (hiPrio bintools)
@@ -24,13 +22,10 @@
     tree-sitter
     exercism
     mercurial
-    wireshark
     age
     sops
     steam-run
     pscale
-    mysql80
-    gitkraken
     gcc
     flyctl
     fira-code
@@ -49,9 +44,6 @@
     pandoc
     peek
     rustup
-    vlang
-    delve
-    apostrophe
     neofetch
     htop
     _1password
@@ -61,6 +53,8 @@
     solaar
     piper
     polymc
+    remmina
+    signal-desktop
   ];
 
   dov = {
@@ -82,7 +76,6 @@
     enable = true;
     enableZshIntegration = true;
   };
-
 
   services.gpg-agent.enable = true;
   programs.gpg.enable = true;

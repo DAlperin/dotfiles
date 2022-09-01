@@ -98,4 +98,8 @@
   services.printing.drivers = [
     pkgs.hplipWithPlugin
   ];
+
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [ "dovalperin" ];
+  virtualisation.virtualbox.host.enableExtensionPack = true;
 }
