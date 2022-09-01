@@ -25,6 +25,7 @@ in
           reload = "source ~/.zshrc";
           open-profile = "nvim ~/.zshrc";
           nd = "nix develop --command zsh";
+          gs = "git status";
           "," = "nix-shell -p";
         };
         sessionVariables = {

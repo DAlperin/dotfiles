@@ -27,7 +27,6 @@
     wireshark
     age
     sops
-    minecraft
     steam-run
     pscale
     mysql80
@@ -61,6 +60,7 @@
     vlc
     solaar
     piper
+    polymc
   ];
 
   dov = {

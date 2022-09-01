@@ -92,36 +92,37 @@
           ]
           [ ];
         humblegeoffrey = mkComputer
-         ./machines/humblegeoffrey
-         "dovalperin"
-         [
-           ./modules/xserver
-           ./modules/gnome
-           ./modules/ssh
-           ./modules/browsers
-           ./modules/postgresql
-           ./modules/redis
-         ] #modules to load
-         [
-           ./modules/zsh
-           ./modules/emacs
-         ]; #modules to be loaded by home-manager
-        spaceship = mkComputer
-         ./machines/spaceship
-         "dovalperin"
-         [
-           ./modules/xserver
-           ./modules/gnome
-           ./modules/ssh
-           ./modules/browsers
-           ./modules/postgresql
-           ./modules/redis
+          ./machines/humblegeoffrey
+          "dovalperin"
+          [
+            ./modules/xserver
+            ./modules/gnome
+            ./modules/ssh
+            ./modules/browsers
+            ./modules/postgresql
+            ./modules/redis
             ./modules/tailscale
-         ] #modules to load
-         [
-           ./modules/zsh
-           ./modules/emacs
-         ]; #modules to be loaded by home-manager
+          ] #modules to load
+          [
+            ./modules/zsh
+            ./modules/emacs
+          ]; #modules to be loaded by home-manager
+        spaceship = mkComputer
+          ./machines/spaceship
+          "dovalperin"
+          [
+            ./modules/xserver
+            ./modules/gnome
+            ./modules/ssh
+            ./modules/browsers
+            ./modules/postgresql
+            ./modules/redis
+            ./modules/tailscale
+          ] #modules to load
+          [
+            ./modules/zsh
+            ./modules/emacs
+          ]; #modules to be loaded by home-manager
       };
     };
 }

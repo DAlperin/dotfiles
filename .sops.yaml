@@ -10,6 +10,10 @@ creation_rules:
     key_groups:
     - age:
       - *admin_dov
+  - path_regex: machines/humblegeoffrey/[^/]+\.yaml$
+    key_groups:
+    - age:
+      - *admin_dov
   - path_regex: machines/ascent/[^/]+\.yaml$
     key_groups:
     - age:
