@@ -97,6 +97,7 @@ in
           PATH=/home/dovalperin/.cargo/bin:$PATH
           PATH=/home/dovalperin/.local/bin:$PATH
           PATH=/home/dovalperin/go/bin/:$PATH
+          PATH=/home/dovalperin/code/flyctl/bin:$PATH
         '';
         plugins = [
           {

@@ -1,13 +1,13 @@
 { lib
 , fetchFromGitHub
 , cmake
-, llvmPackages_13
+, llvmPackages_14
 , libxml2
 , zlib
 }:
 
 let
-  inherit (llvmPackages_13) stdenv;
+  inherit (llvmPackages_14) stdenv;
 in
 stdenv.mkDerivation rec {
   pname = "zig";
@@ -17,18 +17,20 @@ stdenv.mkDerivation rec {
     owner = "ziglang";
     repo = pname;
     rev = version;
-    hash = "sha256-MPOusl24ET5WT/VHPJBJZmKchSurvvWfpB+XLwxW4Vo=";
+    hash = "sha256-WILRh/RmT8u8JZ7szDVnYg8A6aT2jN/R+GNZs+lJO+c=";
   };
 
   nativeBuildInputs = [
     cmake
-    llvmPackages_13.llvm.dev
+    llvmPackages_14.llvm.dev
+    llvmPackages_14.clang
+    llvmPackages_14.clang-unwrapped
   ];
 
   buildInputs = [
     libxml2
     zlib
-  ] ++ (with llvmPackages_13; [
+  ] ++ (with llvmPackages_14; [
     libclang
     lld
     llvm
@@ -44,6 +46,11 @@ stdenv.mkDerivation rec {
     ./zig test --cache-dir "$TMPDIR" -I $src/test $src/test/behavior.zig
     runHook postCheck
   '';
+
+  cmakeFlags = [
+    # https://github.com/ziglang/zig/issues/12069
+    "-DZIG_STATIC_ZLIB=on"
+  ];
 
   meta = with lib; {
     homepage = "https://ziglang.org/";

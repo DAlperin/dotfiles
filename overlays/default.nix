@@ -37,8 +37,19 @@ self: super: {
       makeWrapper ${super.pkgs.unstable.nwjs}/bin/nw $out/bin/${pname} --add-flags $out/opt/${pname}
     '';
   });
+  zig = (super.zig.override { llvmPackages = super.llvmPackages_14; }).overrideAttrs (old: rec {
+    version = "0.10.0-dev";
+    src = super.fetchFromGitHub {
+      owner = "ziglang";
+      repo = "zig";
+      rev = "c84e5ee87852eafff0cbf986bf02c5221cbcec35";
+      hash = "sha256-GicNLPwUIXfKLs8M6ZQ8UX7PGOTy5r31FBQMWUGoEUE=";
+    };
+    patches = [];
+  });
+
   #flyctl = super.callPackage ../pkgs/flyctl.nix { };
-  zig = super.callPackage ../pkgs/zig.nix { };
+  #zig = super.callPackage ../pkgs/zig.nix { };
   bun = super.callPackage ../pkgs/bun.nix { };
   jetbrains-gateway = super.callPackage ../pkgs/jetbrains-gateway.nix { };
 }

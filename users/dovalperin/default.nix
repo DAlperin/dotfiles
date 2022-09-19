@@ -11,6 +11,7 @@
     postgres.enable = true;
     ssh.enable = true;
     redis.enable = true;
+    zoom.enable = true;
     #Stuff that needs system level access in some way
     browsers = {
       brave.enable = true;
@@ -24,6 +25,9 @@
   programs._1password-gui.polkitPolicyOwners = [ "dovalperin" ];
 
   virtualisation.docker.enable = true;
+  virtualisation.docker.extraOptions = ''
+    --insecure-registry "http://humblegeoffrey:5000"
+  '';
   services.udev.extraRules = ''
     ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="5740", MODE="0664", GROUP="plugdev"
   '';

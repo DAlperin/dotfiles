@@ -27,7 +27,7 @@
     steam-run
     pscale
     gcc
-    flyctl
+    #flyctl
     fira-code
     libreoffice
     asciinema
@@ -55,6 +55,7 @@
     polymc
     remmina
     signal-desktop
+    zig
   ];
 
   dov = {
