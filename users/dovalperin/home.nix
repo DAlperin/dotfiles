@@ -104,7 +104,7 @@
 
   programs.go = {
     enable = true;
-    package = pkgs.go_1_18;
+    package = pkgs.unstable.go_1_19;
   };
 
   programs.jq = {
