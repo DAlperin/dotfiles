@@ -92,36 +92,6 @@
       trustedInterfaces = [ "tailscale0" ];
       allowedUDPPorts = [ config.services.tailscale.port 51820 ];
     };
-    wg-quick.interfaces = {
-      #wg0 = {
-      #  address = [ "fdaa:0:52b2:a7b:8cfe:0:a:1102/120" ];
-      #  dns = [ "fdaa:0:52b2::3" ];
-      #  privateKeyFile = config.sops.secrets.flywgpriv.path;
-
-      #  peers = [
-      #    {
-      #      publicKey = "q+cTUCrE9NekeuZEF/gCYxr2wNBjvYgGoqYwV1logEI=";
-      #      allowedIPs = [ "fdaa:0:52b2::/48" ];
-      #      endpoint = "iad2.gateway.6pn.dev:51820";
-      #      persistentKeepalive = 25;
-      #    }
-      #  ];
-      #};
-      wg0 = {
-        address = [ "fdaa:0:6b39:a7b:ce2:0:a:2/120" ];
-        dns = [ "fdaa:0:6b39::3" ];
-        privateKeyFile = config.sops.secrets.flywgexternalpriv.path;
-
-        peers = [
-          {
-            publicKey = "R2in3C4C5I1AVyoSrmsOgSkhPDKAegwUg6zwkLrhryk=";
-            allowedIPs = [ "fdaa:0:6b39::/48" ];
-            endpoint = "iad1.gateway.6pn.dev:51820";
-            persistentKeepalive = 25;
-          }
-        ];
-      };
-    };
   };
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
@@ -133,5 +103,9 @@
     --insecure-registry humblegeoffrey:5000 \
     --insecure-registry humblegeoffrey:8080
   '';
+
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [ "dovalperin" ];
+  virtualisation.virtualbox.host.enableExtensionPack = true;
 }
 

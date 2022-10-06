@@ -37,7 +37,7 @@ self: super: {
       makeWrapper ${super.pkgs.unstable.nwjs}/bin/nw $out/bin/${pname} --add-flags $out/opt/${pname}
     '';
   });
-  flyctl = super.callPackage ../pkgs/flyctl.nix { };
+  #flyctl = super.callPackage ../pkgs/flyctl.nix { };
   zig = super.callPackage ../pkgs/zig.nix { };
   bun = super.callPackage ../pkgs/bun.nix { };
   jetbrains-gateway = super.callPackage ../pkgs/jetbrains-gateway.nix { };

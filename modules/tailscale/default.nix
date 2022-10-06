@@ -59,7 +59,7 @@ in
             if [ $useexit = true ] ; then
               ${unstable.tailscale}/bin/tailscale up -authkey $key --exit-node=100.94.16.88 --ssh
             else
-              ${unstable.tailscale}/bin/tailscale up -authkey $key --reset --ssh
+              ${unstable.tailscale}/bin/tailscale up -authkey $key --reset --ssh --accept-routes
             fi
           fi
         '';
