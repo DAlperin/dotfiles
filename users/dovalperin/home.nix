@@ -56,6 +56,7 @@
     remmina
     signal-desktop
     zig
+    nheko
   ];
 
   dov = {

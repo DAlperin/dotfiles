@@ -77,23 +77,6 @@
       trustedInterfaces = [ "tailscale0" ];
       allowedUDPPorts = [ config.services.tailscale.port 51820 ];
     };
-    wg-quick.interfaces = {
-      wg0 = {
-        address = [ "fdaa:0:6b39:a7b:ce2:0:a:2/120" ];
-        dns = [ "fdaa:0:6b39::3" ];
-        privateKeyFile = config.sops.secrets.flywgexternalpriv.path;
-
-        peers = [
-          {
-            publicKey = "R2in3C4C5I1AVyoSrmsOgSkhPDKAegwUg6zwkLrhryk=";
-            allowedIPs = [ "fdaa:0:6b39::/48" ];
-            endpoint = "iad1.gateway.6pn.dev:51820";
-            persistentKeepalive = 25;
-          }
-        ];
-      };
-    };
-
   };
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
@@ -121,5 +104,5 @@
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "dovalperin" ];
   virtualisation.virtualbox.host.enableExtensionPack = true;
-  virtualisation.containers.registries.insecure = ["humblegeoffrey"];
+  virtualisation.containers.registries.insecure = [ "humblegeoffrey" ];
 }

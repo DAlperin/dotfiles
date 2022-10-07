@@ -45,7 +45,14 @@ self: super: {
       rev = "c84e5ee87852eafff0cbf986bf02c5221cbcec35";
       hash = "sha256-GicNLPwUIXfKLs8M6ZQ8UX7PGOTy5r31FBQMWUGoEUE=";
     };
-    patches = [];
+    patches = [ ];
+  });
+  signal-desktop = super.signal-desktop.overrideAttrs (old: rec {
+    version = "5.61.0";
+    src = super.fetchurl {
+      url = "https://updates.signal.org/desktop/apt/pool/main/s/signal-desktop/signal-desktop_${version}_amd64.deb";
+      sha256 = "sha256-1EPOuvul/Dh/gFwgCy7Wme6GYIP1Mi3TofTrIF3kU3g=";
+    };
   });
 
   #flyctl = super.callPackage ../pkgs/flyctl.nix { };

@@ -16,11 +16,11 @@
 
 stdenv.mkDerivation rec {
   pname = "jetbrains-gateway";
-  version = "222.2270.16";
+  version = "223.4884.79";
 
   src = builtins.fetchurl {
-    url = "https://download.jetbrains.com/idea/gateway/JetBrainsGateway-222.2270.16.tar.gz";
-    sha256 = "sha256:03frqm0km0wpcmnd917z8icqjb2ng2s86vhzmw71aw9g77sk8wnd";
+    url = "https://download.jetbrains.com/idea/gateway/JetBrainsGateway-${version}.tar.gz";
+    sha256 = "sha256:1kvyxcz2fvqa4q2w7jvkgk7rqg7zfj489rrc3nfdwqsdkfw54wrp";
   };
 
   nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
