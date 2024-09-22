@@ -2,32 +2,27 @@
   #Home manager configuration
   home.username = "dovalperin";
   home.homeDirectory = "/home/dovalperin";
+  home.stateVersion = "21.11";
   imports = [ ./../../home ./../../home/nixos ];
 
   home.packages = with pkgs; [
     loc
-    element-desktop
     discord
     yarn
     bat
-    exa
-    nodejs-16_x
+    eza
     lsof
-    spotify
-    thunderbird
     dig
     nerdfonts
     (hiPrio bintools)
     xclip
     tree-sitter
-    exercism
     mercurial
     age
     sops
     steam-run
     pscale
     gcc
-    #flyctl
     fira-code
     libreoffice
     asciinema
@@ -36,27 +31,18 @@
     postman
     insomnia
     docker-compose
-    terraform
     glib
     slack
-    gimp
-    ghidra
     pandoc
     peek
     rustup
     neofetch
     htop
     _1password
-    jetbrains-gateway
     gh
     vlc
-    solaar
-    piper
-    polymc
-    remmina
     signal-desktop
-    zig
-    nheko
+    unstable.zellij
   ];
 
   dov = {
@@ -106,7 +92,7 @@
 
   programs.go = {
     enable = true;
-    package = pkgs.unstable.go_1_19;
+    package = pkgs.unstable.go_1_23;
   };
 
   programs.jq = {

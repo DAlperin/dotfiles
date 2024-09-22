@@ -4,9 +4,6 @@ self: super: {
     adwaita-theme-switcher = super.callPackage ../pkgs/adwaita-theme-switcher.nix { };
     advanced-alttab-window-switcher = super.callPackage ../pkgs/advanced-alt-tab.nix { };
   };
-  #_1password-gui = super.callPackage ../pkgs/1password-gui.nix { };
-  #_1password = super.callPackage ../pkgs/1password.nix { };
-  kubeseal = super.callPackage ../pkgs/kubeseal.nix { };
   unstable = import unstable {
     system = "${super.system}";
     config.allowUnfree = true;
@@ -37,26 +34,4 @@ self: super: {
       makeWrapper ${super.pkgs.unstable.nwjs}/bin/nw $out/bin/${pname} --add-flags $out/opt/${pname}
     '';
   });
-  zig = (super.zig.override { llvmPackages = super.llvmPackages_14; }).overrideAttrs (old: rec {
-    version = "0.10.0-dev";
-    src = super.fetchFromGitHub {
-      owner = "ziglang";
-      repo = "zig";
-      rev = "c84e5ee87852eafff0cbf986bf02c5221cbcec35";
-      hash = "sha256-GicNLPwUIXfKLs8M6ZQ8UX7PGOTy5r31FBQMWUGoEUE=";
-    };
-    patches = [ ];
-  });
-  signal-desktop = super.signal-desktop.overrideAttrs (old: rec {
-    version = "5.61.0";
-    src = super.fetchurl {
-      url = "https://updates.signal.org/desktop/apt/pool/main/s/signal-desktop/signal-desktop_${version}_amd64.deb";
-      sha256 = "sha256-1EPOuvul/Dh/gFwgCy7Wme6GYIP1Mi3TofTrIF3kU3g=";
-    };
-  });
-
-  #flyctl = super.callPackage ../pkgs/flyctl.nix { };
-  #zig = super.callPackage ../pkgs/zig.nix { };
-  bun = super.callPackage ../pkgs/bun.nix { };
-  jetbrains-gateway = super.callPackage ../pkgs/jetbrains-gateway.nix { };
 }

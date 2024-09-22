@@ -19,14 +19,13 @@
       extraOptions = ''
         experimental-features = nix-command flakes
       '';
-      trustedUsers = [ "root" "dovalperin" ];
+      settings.trusted-users = [ "root" "dovalperin" ];
     };
 
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.loader.grub = {
     enable = true;
-    version = 2;
     efiSupport = true;
     enableCryptodisk = true;
     device = "nodev";
@@ -107,5 +106,6 @@
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "dovalperin" ];
   virtualisation.virtualbox.host.enableExtensionPack = true;
+  system.stateVersion = "22.05";
 }
 

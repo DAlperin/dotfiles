@@ -9,6 +9,6 @@ in
   options.dov.redis.enable = mkEnableOption "redis";
 
   config = mkIf cfg.enable {
-    services.redis.enable = true;
+    services.redis.servers.default.enable = true;
   };
 }

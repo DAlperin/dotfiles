@@ -1,10 +1,10 @@
 {
   description = "Dovs nixos configs";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = github:NixOS/nixos-hardware/master;
-    home-manager.url = "github:nix-community/home-manager/release-22.05";
+    home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     emacs-overlay.url = "github:nix-community/emacs-overlay/master";
     nix-matlab.url = "gitlab:doronbehar/nix-matlab";
@@ -25,7 +25,7 @@
           ];
         };
       defaultNixOptions = {
-        nix.autoOptimiseStore = true;
+        nix.settings.auto-optimise-store = true;
       };
       mkComputer = configurationNix: userName: extraModules: extraHomeModules: inputs.nixpkgs.lib.nixosSystem {
         inherit system;
@@ -57,7 +57,6 @@
           "dovalperin" #default user
           [
             ./modules/gnome
-            ./modules/1password
             ./modules/tailscale
             ./modules/ssh
           ] #modules to load
@@ -76,7 +75,6 @@
             ./modules/browsers
             ./modules/postgresql
             ./modules/redis
-            #./modules/1password #needs to be a systemPackage to install polkit policy
           ] #modules to load
           [
             ./modules/zsh

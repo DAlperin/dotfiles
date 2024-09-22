@@ -16,12 +16,12 @@
     browsers = {
       brave.enable = true;
       firefox.enable = true;
+      chrome.enable = true;
     };
   };
 
   programs.steam.enable = true;
   programs._1password-gui.enable = true;
-  programs._1password-gui.gid = 5000;
   programs._1password-gui.polkitPolicyOwners = [ "dovalperin" ];
 
   virtualisation.docker.enable = true;

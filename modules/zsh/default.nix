@@ -17,7 +17,7 @@ in
           enable = true;
         };
         shellAliases = {
-          ls = "exa -GFh";
+          ls = "eza -Gh";
           cls = "clear";
           cat = "bat --paging=never";
           catl = "bat";
