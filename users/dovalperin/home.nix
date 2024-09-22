@@ -80,13 +80,15 @@
     userEmail = "git@dov.dev";
     delta.enable = true;
     signing = {
-      key = "7F2C07B91B52BB61";
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOgNtRqAsed9TE5lt9YjYq/rsQJWr2k0X8GSineYm4HM";
       signByDefault = true;
     };
     extraConfig = {
       init = {
         defaultBranch = "main";
       };
+      gpg."ssh".program = "${pkgs._1password-gui}/bin/op-ssh-sign";
+      gpg.format = "ssh";
     };
   };
 
