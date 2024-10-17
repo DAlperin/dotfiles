@@ -31,8 +31,6 @@ project
 │   └───nixosvm (base config for running nixos on a virtualbox vm)
 │   │   ...
 │
-└───machines (hardware configuration for all machines this config runs on)
-│
 └───modules (custom nixos modules)
 │   │   ...
 │
